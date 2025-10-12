@@ -10,9 +10,11 @@
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
+    "@heroicons/react": "^2.2.0",
     "mariadb": "^3.4.5",
     "mysql": "^2.18.1",
     "next": "15.5.4",
+    "pocketbase": "^0.26.2",
     "react": "19.1.0",
     "react-dom": "19.1.0"
   },

@@ -1,105 +1,119 @@
-import Image from "next/image";
-import Link from "next/link";
+import Image from 'next/image'
+import Link from 'next/link'
 
-
- export default function Home() {
+export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
-
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <Link
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="/admin"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </Link>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+    <div className="min-h-screen bg-gray-900">
+      {/* Hero Section */}
+      <div className="relative h-screen">
+        {/* Background Image */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/lec-arena.jpg"
+            alt="LEC Arena"
+            fill
+            className="object-cover brightness-50"
+            priority
+          />
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+
+        {/* Navigation */}
+        <nav className="relative z-10 bg-gradient-to-b from-black/70 to-transparent">
+          <div className="container mx-auto px-6 py-4">
+            <div className="flex items-center justify-between">
+              <div className="text-2xl font-bold text-white">ESPORT ZONE</div>
+              <div className="hidden md:flex space-x-8">
+                <Link href="#tournaments" className="text-white hover:text-blue-400 transition">Tournois</Link>
+                <Link href="#teams" className="text-white hover:text-blue-400 transition">Équipes</Link>
+                <Link href="#news" className="text-white hover:text-blue-400 transition">Actualités</Link>
+                <Link href="/login" className="text-white hover:text-blue-400 transition">Connexion</Link>
+              </div>
+            </div>
+          </div>
+        </nav>
+
+        {/* Hero Content */}
+        <div className="relative z-10 h-full flex items-center">
+          <div className="container mx-auto px-6">
+            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+              Vivez l&apos;expérience <br />
+              <span className="text-blue-500">Esport Français</span>
+            </h1>
+            <p className="text-xl text-gray-300 mb-8 max-w-2xl">
+              Découvrez l&apos;excellence de l&apos;esport français avec Karmine Corp et Team Vitality.
+              Suivez les meilleurs joueurs de la scène française et européenne sur League of Legends.
+            </p>
+            <div className="space-x-4">
+              <Link 
+                href="#tournaments"
+                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium transition"
+              >
+                Voir les tournois
+              </Link>
+              <Link 
+                href="#teams"
+                className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-lg font-medium hover:bg-white/10 transition"
+              >
+                Découvrir les équipes
+              </Link>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Teams Section */}
+      <section id="tournaments" className="py-20 bg-gray-800">
+        <div className="container mx-auto px-6">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-12">Équipes Phares</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* KC Card */}
+            <div className="bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-blue-500">
+              <div className="p-6">
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-32 h-32 relative">
+                    <div className="text-4xl font-bold text-white text-center">KC</div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 text-center">Karmine Corp</h3>
+                <p className="text-gray-400 mb-4 text-center">Les Blues, la nouvelle force de la LEC</p>
+                <div className="text-blue-400 text-center">Champions de France</div>
+              </div>
+            </div>
+
+            {/* Vitality Card */}
+            <div className="bg-gray-900 rounded-lg overflow-hidden shadow-lg border border-yellow-500">
+              <div className="p-6">
+                <div className="flex items-center justify-center mb-4">
+                  <div className="w-32 h-32 relative">
+                    <div className="text-4xl font-bold text-white text-center">VIT</div>
+                  </div>
+                </div>
+                <h3 className="text-xl font-bold text-white mb-2 text-center">Team Vitality</h3>
+                <p className="text-gray-400 mb-4 text-center">Les abeilles de la LEC</p>
+                <div className="text-yellow-400 text-center">L&apos;excellence française</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Call to Action */}
+      <section className="py-20 bg-gray-900">
+        <div className="container mx-auto px-6 text-center">
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-8">
+            Prêt à rejoindre l&apos;aventure ?
+          </h2>
+          <p className="text-xl text-gray-400 mb-8">
+            Inscrivez-vous maintenant et commencez votre parcours dans l&apos;esport
+          </p>
+          <Link 
+            href="/login"
+            className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-3 rounded-lg font-medium inline-block transition"
+          >
+            Commencer maintenant
+          </Link>
+        </div>
+      </section>
     </div>
-  );
+  )
 }
