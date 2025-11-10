@@ -20,9 +20,7 @@ const userNavigation = [
   { name: 'Sign out', href: '#' },
 ]
 
-function classNames(classes) {
-  return classes.filter(Boolean).join(' ')
-}
+
 
 export default function Example() {
   return (
@@ -54,12 +52,8 @@ export default function Example() {
                         key={item.name}
                         href={item.href}
                         aria-current={item.current ? 'page' : undefined}
-                        className={classNames(
-                          item.current
-                            ? 'bg-gray-950/50 text-white'
-                            : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                          'rounded-md px-3 py-2 text-sm font-medium',
-                        )}
+                        className="bg-gray-950/50 text-white
+                          text-gray-300 hover:bg-white/5 "
                       >
                         {item.name}
                       </a>
@@ -128,10 +122,7 @@ export default function Example() {
                   as="a"
                   href={item.href}
                   aria-current={item.current ? 'page' : undefined}
-                  className={classNames(
-                    item.current ? 'bg-gray-950/50 text-white' : 'text-gray-300 hover:bg-white/5 hover:text-white',
-                    'block rounded-md px-3 py-2 text-base font-medium',
-                  )}
+                  className="bg-gray-950/50 text-white' : 'text-gray-300"
                 >
                   {item.name}
                 </DisclosureButton>

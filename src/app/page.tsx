@@ -9,7 +9,7 @@ export default function Home() {
         {/* Background Image */}
         <div className="absolute inset-0">
           <Image
-            src="/images/lec-arena.jpg"
+            src="/images/lec-arena.jpeg"
             alt="LEC Arena"
             fill
             className="object-cover brightness-50"
