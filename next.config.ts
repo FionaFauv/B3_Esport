@@ -14,6 +14,12 @@ const nextConfig: NextConfig = {
         hostname: 'static.wikia.nocookie.net',
         port: '',
         pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'fiona.pb.andy-cinquin.fr',
+        port: '',
+        pathname: '/api/files/**',
       }
     ],
   },
