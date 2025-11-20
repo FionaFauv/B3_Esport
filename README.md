@@ -7,7 +7,7 @@
 
   
 ### **Sujet du projet : Plateforme de paris E-Sportifs**
-[Lien du projet](https://github.com/CinquinAndy/js-frameworks/blob/master/LA-FIN-Projet/Projet-Sujet.md)
+[Lien du sujet](https://github.com/CinquinAndy/js-frameworks/blob/master/LA-FIN-Projet/Projet-Sujet.md)
 
 <br>
 <p align="center">
@@ -85,7 +85,7 @@ Le projet est de réaliser une application web pour un client fictif : Une plate
 
 <td align="center"><b>3</b></td>
 <td><b>Partie Admin</b></td>
-<td>Créer une page où l'admin arrivera lors de sa connexion. Un talbeau de bord</td>
+<td>Créer une page où l'admin arrivera lors de sa connexion. Un tableau de bord</td>
 <td>
 <b>Back-End :</b> J'avais l'idée de faire un tableau de bord dynamique (équipes total : ..., matchs crées : ...) mais trop de soucis, alors la moitié est écrit en dur.<br>
 </td>
