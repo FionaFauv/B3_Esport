@@ -2,6 +2,8 @@
 
 import { useState, useEffect } from 'react';
 import { pb } from '@/lib/pocketbase';
+import { DateTime } from 'luxon';
+
 
 interface CreateMatchModalProps {
   isOpen: boolean;
@@ -12,13 +14,22 @@ interface CreateMatchModalProps {
 interface Team {
   id: string;
   name: string;
-  abbreviation: string;
+  tag: string;
+}
+
+interface Tournaments {
+  id: string;
+  name: string;
+  game_id: string;
 }
 
 export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateMatchModalProps) {
   const [team1, setTeam1] = useState('');
   const [team2, setTeam2] = useState('');
   const [date, setDate] = useState('');
+  const [tournament, setTournament] = useState('');
+  const [tournaments, setTournaments] = useState<Tournaments[]>([]);
+  const [prizepool, setPrizepool] = useState('');
   const [location, setLocation] = useState('');
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(false);
@@ -27,13 +38,23 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
   useEffect(() => {
     const fetchTeams = async () => {
       try {
-        const records = await pb.collection('Teams').getFullList<Team>({
+        const recordsTeams = await pb.collection('Teams').getFullList<Team>({
           sort: 'name',
         });
-        setTeams(records);
+        setTeams(recordsTeams);
       } catch (err) {
         console.error('Erreur lors du chargement des équipes:', err);
+      };
+
+      try {
+        const recordsTournaments = await pb.collection('Tournaments').getFullList<Tournaments>({
+          sort: 'name',
+        });
+        setTournaments(recordsTournaments);
+      } catch (err) {
+        console.error('Erreur lors du chargement des Tournois:', err);
       }
+    
     };
 
     if (isOpen) {
@@ -52,22 +73,23 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
       return;
     }
 
-    if (!team1 || !team2 || !date) {
+    if (!team1 || !team2 || !date || !tournament) {
       setError('Veuillez remplir tous les champs obligatoires');
       setLoading(false);
       return;
     }
 
     try {
-      // Convertir la date locale en ISO string pour PocketBase
-      const dateISO = new Date(date).toISOString();
+      const dateISO = DateTime.fromISO(date, { zone: 'Europe/Paris' }).toUTC().toISO();
       
-      console.log('Création du match avec:', { team1, team2, date: dateISO, location });
+      console.log('Création du match avec:', { team1, team2, date: dateISO, tournament, prizepool, location });
       
       const record = await pb.collection('Matches').create({
         team1: team1,
         team2: team2,
         date: dateISO,
+        tournament: tournament,
+        prizepool: prizepool ? parseFloat(prizepool) : 0,
         location: location || '',
         status: 'upcoming',
       });
@@ -78,6 +100,8 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
       setTeam1('');
       setTeam2('');
       setDate('');
+      setTournament('');
+      setPrizepool('');
       setLocation('');
       
       onSuccess();
@@ -148,7 +172,7 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
               <option value="">Sélectionner une équipe</option>
               {teams.map((team) => (
                 <option key={team.id} value={team.id}>
-                  {team.name} ({team.abbreviation})
+                  {team.name} ({team.tag})
                 </option>
               ))}
             </select>
@@ -167,7 +191,7 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
               <option value="">Sélectionner une équipe</option>
               {teams.map((team) => (
                 <option key={team.id} value={team.id}>
-                  {team.name} ({team.abbreviation})
+                  {team.name} ({team.tag})
                 </option>
               ))}
             </select>
@@ -186,6 +210,40 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
             />
           </div>
           
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2 font-medium">
+              Tournoi *
+            </label>
+            <select
+              value={tournament}
+              onChange={(e) => setTournament(e.target.value)}
+              className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
+              required
+            >
+              <option value="">Sélectionner un tournoi</option>
+              {tournaments.map((t) => (
+                <option key={t.id} value={t.id}>
+                  {t.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          
+          <div className="mb-4">
+            <label className="block text-gray-300 mb-2 font-medium">
+              Prix pour les gagnants (€)
+            </label>
+            <input
+              type="number"
+              value={prizepool}
+              onChange={(e) => setPrizepool(e.target.value)}
+              className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
+              placeholder="Ex: 50000"
+              min="0"
+              step="0.01"
+            />
+          </div>
+          
           <div className="mb-6">
             <label className="block text-gray-300 mb-2 font-medium">
               Lieu
@@ -195,7 +253,7 @@ export default function CreateMatchModal({ isOpen, onClose, onSuccess }: CreateM
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               className="w-full p-3 bg-gray-700 text-white border border-gray-600 rounded-lg focus:outline-none focus:border-blue-500"
-              placeholder="Ex: LEC Arena, Berlin"
+              placeholder="Ex: Chine, Berlin"
             />
           </div>
           

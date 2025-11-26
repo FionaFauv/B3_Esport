@@ -157,7 +157,7 @@ export default function EditTeamModal({ isOpen, onClose, onSuccess, team }: Edit
           
           <div className="mb-4">
             <label className="block text-gray-300 mb-2 font-medium">
-              Abréviation *
+              Tag *
             </label>
             <input
               type="text"
