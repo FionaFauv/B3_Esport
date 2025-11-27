@@ -69,10 +69,6 @@ export default function Adminpage() {
   const { user, isAuthenticated } = useAuthStore();
   const router = useRouter();
 
-  if (!isAuthenticated && !user?.admin) {
-    router.push('/auth/login');
-    return null;
-  }
 
   const fetchTeams = async () => {
     try {
@@ -142,6 +138,10 @@ export default function Adminpage() {
     fetchMatches();
   }, []);
 
+  if (!isAuthenticated && !user?.admin) {
+    router.push('/auth/login');
+    return null;
+  }
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
