@@ -1,16 +1,16 @@
 'use client';
 
 import { useState } from 'react';
-import { pb } from '@/lib/pocketbase';
+import { useAuthStore } from '@/stores/AuthStore';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 
- 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
+  const login = useAuthStore((state) => state.login);
   const router = useRouter();
 
   const handleLogin = async (e: React.FormEvent) => {
@@ -19,10 +19,10 @@ export default function LoginPage() {
     setError('');
 
     try {
-      const authData = await pb.collection('users').authWithPassword(email, password);
-      const isAdmin = authData.record.admin === true;
-
-      if (isAdmin) {
+      await login(email, password);
+      // Get user after login to determine redirect
+      const user = useAuthStore.getState().user;
+      if (user?.admin) {
         router.push('/admin');
       } else {
         router.push('/visiteur');
@@ -34,6 +34,7 @@ export default function LoginPage() {
       setLoading(false);
     }
   };
+
 
   return (
     <div className="min-h-screen flex items-center justify-center p-4" style={{ background: 'var(--background)' }}>

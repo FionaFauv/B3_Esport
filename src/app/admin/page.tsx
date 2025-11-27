@@ -3,7 +3,9 @@
 import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import NavbarAdmin from '@/components/NavbarAdmin';
+import { useAuthStore } from '@/stores/AuthStore';
+import { useRouter } from 'next/navigation';
+
 
 interface Team {
   id: string;
@@ -53,7 +55,7 @@ interface Game {
 }
 
 // Fonction pour le tableau de bord (falcutatif à revoir si j'ai le temps.)
-export default function Example() {
+export default function Adminpage() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [games, setGames] = useState<Game[]>([]);
@@ -63,6 +65,14 @@ export default function Example() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [matchesLoading, setMatchesLoading] = useState(true);
 
+
+  const { user, isAuthenticated } = useAuthStore();
+  const router = useRouter();
+
+  if (!isAuthenticated && !user?.admin) {
+    router.push('/auth/login');
+    return null;
+  }
 
   const fetchTeams = async () => {
     try {
@@ -132,9 +142,9 @@ export default function Example() {
     fetchMatches();
   }, []);
 
+
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
-      <NavbarAdmin />
 
       {/* Contenu principal */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
