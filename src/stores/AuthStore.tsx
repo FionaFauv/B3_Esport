@@ -5,6 +5,7 @@ import type { RecordModel } from 'pocketbase';
 interface User extends RecordModel {
   email: string;
   admin: boolean;
+  SuperAdmin: boolean;
 }
 
 interface AuthState {

@@ -4,7 +4,6 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
 import { useAuthStore } from '@/stores/AuthStore';
-import { useRouter } from 'next/navigation';
 
 export default function NavbarAdmin() {
   const pathname = usePathname();
@@ -13,13 +12,7 @@ export default function NavbarAdmin() {
     return pathname === path;
   };
 
-  const { user, isAuthenticated , logout } = useAuthStore();
-  const router = useRouter();
-
-  if (!isAuthenticated && !user?.admin) {
-    router.push('/auth/login');
-    return null;
-  }
+  const { user, logout } = useAuthStore();
 
 
   return (
@@ -63,9 +56,19 @@ export default function NavbarAdmin() {
             >
               Équipes
             </Link>
+            {user?.SuperAdmin && (
+            <Link 
+              href="/admin/gestion" 
+              className={`text-sm nav-link ${isActive('/admin/gestion') ? 'font-medium' : ''}`}
+              style={{ color: isActive('/admin/gestion') ? '#d87943' : 'var(--foreground)' }}
+            >
+              Gestion
+            </Link>
+            )}
+
             <div className="h-6 w-px" style={{ background: 'var(--border)' }}></div>
             <Link 
-              href="/auth/login" 
+              href="/" 
               className="text-sm nav-link flex items-center gap-2"
               style={{ color: 'var(--foreground)' }}
               onClick={logout}

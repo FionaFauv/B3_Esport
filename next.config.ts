@@ -20,7 +20,13 @@ const nextConfig: NextConfig = {
         hostname: 'fiona.pb.andy-cinquin.fr',
         port: '',
         pathname: '/api/files/**',
-      }
+      },
+      {
+        protocol: 'https',
+        hostname: 'static-cdn.jtvnw.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

@@ -4,7 +4,6 @@ import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
 import CreateTeamModal from '@/components/CreateTeamModal';
 import EditTeamModal from '@/components/EditTeamModal';
-import NavbarAdmin from '@/components/NavbarAdmin';
 import Image from 'next/image';
 
 interface Team {
@@ -115,7 +114,6 @@ export default function Example() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
-      <NavbarAdmin />
 
       {/* Contenu principal */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
