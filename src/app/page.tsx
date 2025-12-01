@@ -34,10 +34,10 @@ export default function Home() {
               <Link href="/" className="nav-link font-medium" style={{ color: '#d87943' }}>
                 Accueil
               </Link>
-              <Link href="/visiteur" className="nav-link font-medium" style={{ color: 'var(--foreground)' }}>
+              <Link href="/" className="nav-link font-medium" style={{ color: 'var(--foreground)' }}>
                 Paris
               </Link>
-              <Link href="/admin/matchs" className="nav-link font-medium" style={{ color: 'var(--foreground)' }}>
+              <Link href="/" className="nav-link font-medium" style={{ color: 'var(--foreground)' }}>
                 Matchs
               </Link>
               <Link href="/contact" className="nav-link font-medium" style={{ color: 'var(--foreground)' }}>
@@ -209,7 +209,7 @@ export default function Home() {
               Commencer maintenant →
             </Link>
             <Link 
-              href="/visiteur"
+              href="/auth/login"
               className="inline-block px-8 py-4 rounded-lg font-bold text-lg border-2 transition-all duration-200 hover:scale-105"
               style={{ 
                 borderColor: '#d87943', 
