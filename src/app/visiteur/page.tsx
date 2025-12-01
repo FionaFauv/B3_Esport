@@ -4,6 +4,8 @@ import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { useAuthStore } from '@/stores/AuthStore';
+import { useRouter } from 'next/navigation';
 
 interface Team {
   id: string;
@@ -34,7 +36,9 @@ interface Match {
 export default function VisiteurPage() {
   const [matches, setMatches] = useState<Match[]>([]);
   const [loading, setLoading] = useState(true);
-
+  const { user, isAuthenticated } = useAuthStore();
+  const router = useRouter();
+  
   const fetchMatches = async () => {
     try {
       setLoading(true);
@@ -96,6 +100,12 @@ export default function VisiteurPage() {
     // TODO: Ouvrir un modal de pari
     alert(`Fonction de pari pour le match ${match.expand?.team1_id?.name} vs ${match.expand?.team2_id?.name} - À implémenter`);
   };
+
+    if (!isAuthenticated) {
+    router.push('/auth/login');
+    return null;
+  }
+
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900">
