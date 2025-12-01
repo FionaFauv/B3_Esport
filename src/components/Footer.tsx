@@ -47,17 +47,17 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href="/visiteur" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                <Link href="/" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                   Paris
                 </Link>
               </li>
               <li>
-                <Link href="/admin/equipes" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                <Link href="/" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                   Équipes
                 </Link>
               </li>
               <li>
-                <Link href="/admin/matchs" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
+                <Link href="/" className="footer-link" style={{ color: 'var(--foreground)', opacity: 0.7 }}>
                   Matchs
                 </Link>
               </li>
