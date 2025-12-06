@@ -7,6 +7,8 @@ import EditMatchModal from '@/components/EditMatchModal';
 import CreateTournamentModal from '@/components/CreateTournamentModal';
 import EditTournamentModal from '@/components/EditTournamentModal';
 import Image from 'next/image';
+import { useAuthStore } from '@/stores/AuthStore';
+import { useRouter } from 'next/navigation';
 
 interface Team {
   id: string;
@@ -56,6 +58,9 @@ export default function MatchsPage() {
   const [tournaments, setTournaments] = useState<Tournaments[]>([]);
   const [loading, setLoading] = useState(true);
   const [tournamentsLoading, setTournamentsLoading] = useState(true);
+
+    const { user, isAuthenticated } = useAuthStore();
+    const router = useRouter();
 
   const currentYear = new Date().getFullYear();
 
@@ -199,6 +204,11 @@ export default function MatchsPage() {
         return null;
     }
   };
+
+    if (!isAuthenticated && !user?.admin) {
+    router.push('/auth/login');
+    return null;
+  }
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
