@@ -4,7 +4,8 @@ import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
 import CreateMatchModal from '@/components/CreateMatchModal';
 import EditMatchModal from '@/components/EditMatchModal';
-import NavbarAdmin from '@/components/NavbarAdmin';
+import CreateTournamentModal from '@/components/CreateTournamentModal';
+import EditTournamentModal from '@/components/EditTournamentModal';
 import Image from 'next/image';
 
 interface Team {
@@ -32,7 +33,7 @@ interface Match {
   team2_id: string;
   game_id: string;
   match_date: string;
-  status: 'upcoming' | 'ongoing' | 'finished';
+  status: 'Prévu' | 'Annulé' | 'Terminé' | 'Reporté';
   team1_score: number;
   team2_score: number;
   winner_id: string;
@@ -47,7 +48,10 @@ interface Match {
 export default function MatchsPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isTournamentModalOpen, setIsTournamentModalOpen] = useState(false);
+  const [isEditTournamentModalOpen, setIsEditTournamentModalOpen] = useState(false);
   const [selectedMatch, setSelectedMatch] = useState<Match | null>(null);
+  const [selectedTournament, setSelectedTournament] = useState<Tournaments | null>(null);
   const [matches, setMatches] = useState<Match[]>([]);
   const [tournaments, setTournaments] = useState<Tournaments[]>([]);
   const [loading, setLoading] = useState(true);
@@ -109,9 +113,24 @@ export default function MatchsPage() {
     setSelectedMatch(null);
   };
 
+  const handleTournamentCreated = () => {
+    fetchTournaments();
+  };
+
+  const handleTournamentUpdated = () => {
+    fetchTournaments();
+    setIsEditTournamentModalOpen(false);
+    setSelectedTournament(null);
+  };
+
   const handleEditClick = (match: Match) => {
     setSelectedMatch(match);
     setIsEditModalOpen(true);
+  };
+
+  const handleEditTournamentClick = (tournament: Tournaments) => {
+    setSelectedTournament(tournament);
+    setIsEditTournamentModalOpen(true);
   };
 
   const handleTournamentDelete = async (tournamentId: string) => {
@@ -183,7 +202,6 @@ export default function MatchsPage() {
 
   return (
     <div className="min-h-screen" style={{ background: 'var(--background)' }}>
-      <NavbarAdmin />
 
       {/* Contenu principal avec layout 2 colonnes */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -316,7 +334,7 @@ export default function MatchsPage() {
                                 {match.expand?.team1_id?.tag || 'T1'}
                               </span>
                             </div>
-                            {match.status === 'finished' && match.team1_score !== undefined && (
+                            {match.status === 'Terminé' && match.team1_score !== undefined && (
                               <p className="text-3xl font-bold" style={{ color: '#d87943' }}>{match.team1_score}</p>
                             )}
                           </div>
@@ -339,7 +357,7 @@ export default function MatchsPage() {
                                 {match.expand?.team2_id?.name || `Équipe ${match.team2_id.substring(0, 8)}`}
                               </h3>
                             </div>
-                            {match.status === 'finished' && match.team2_score !== undefined && (
+                            {match.status === 'Terminé' && match.team2_score !== undefined && (
                               <p className="text-3xl font-bold" style={{ color: '#d87943' }}>{match.team2_score}</p>
                             )}
                           </div>
@@ -379,11 +397,12 @@ export default function MatchsPage() {
                 <div className="flex items-center justify-between mb-6">
                   <h3 className="text-xl font-bold" style={{ color: 'var(--foreground)' }}>Tournois {currentYear}</h3>
                   <button
-                    className="p-2 rounded-lg transition"
+                    onClick={() => setIsTournamentModalOpen(true)}
+                    className="p-2 rounded-lg transition-all duration-200 hover:scale-110 hover:shadow-lg active:scale-95 group"
                     style={{ background: 'rgba(216, 121, 67, 0.2)', color: '#d87943' }}
                     title="Ajouter un tournoi"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-5 h-5 group-hover:rotate-90 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
                     </svg>
                   </button>
@@ -413,7 +432,8 @@ export default function MatchsPage() {
                           </h4>
                           <div className="flex items-center gap-1">
                             <button
-                              className="p-1.5 rounded-lg transition"
+                              onClick={() => handleEditTournamentClick(tournament)}
+                              className="p-1.5 rounded-lg transition hover:scale-110 active:scale-95"
                               style={{ background: 'rgba(216, 121, 67, 0.2)', color: '#d87943' }}
                               title="Modifier"
                             >
@@ -423,7 +443,7 @@ export default function MatchsPage() {
                             </button>
                             <button
                               onClick={() => handleTournamentDelete(tournament.id)}
-                              className="p-1.5 rounded-lg transition"
+                              className="p-1.5 rounded-lg transition hover:scale-110 active:scale-95"
                               style={{ background: 'rgba(239, 68, 68, 0.2)', color: '#ef4444' }}
                               title="Supprimer"
                             >
@@ -453,6 +473,12 @@ export default function MatchsPage() {
         onSuccess={handleMatchCreated}
       />
 
+      <CreateTournamentModal
+        isOpen={isTournamentModalOpen}
+        onClose={() => setIsTournamentModalOpen(false)}
+        onSuccess={handleTournamentCreated}
+      />
+
       {selectedMatch && (
         <EditMatchModal
           isOpen={isEditModalOpen}
@@ -462,6 +488,18 @@ export default function MatchsPage() {
           }}
           onSuccess={handleMatchUpdated}
           match={selectedMatch}
+        />
+      )}
+
+      {selectedTournament && (
+        <EditTournamentModal
+          isOpen={isEditTournamentModalOpen}
+          onClose={() => {
+            setIsEditTournamentModalOpen(false);
+            setSelectedTournament(null);
+          }}
+          onSuccess={handleTournamentUpdated}
+          tournament={selectedTournament}
         />
       )}
     </div>

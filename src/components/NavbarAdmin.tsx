@@ -3,6 +3,7 @@
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import ThemeToggle from './ThemeToggle';
+import { useAuthStore } from '@/stores/AuthStore';
 
 export default function NavbarAdmin() {
   const pathname = usePathname();
@@ -11,8 +12,11 @@ export default function NavbarAdmin() {
     return pathname === path;
   };
 
+  const { user, logout } = useAuthStore();
+
+
   return (
-    <header className="backdrop-blur-lg sticky top-0 z-50" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }}>
+    <header className="backdrop-blur-lg sticky top-0 z-50" style={{ background: 'var(--background)', borderBottom: '1px solid var(--border)' }} suppressHydrationWarning>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo et titre */}
@@ -24,7 +28,7 @@ export default function NavbarAdmin() {
             </div>
             <div>
               <h1 className="text-lg font-bold" style={{ color: 'var(--foreground)' }}>Esport Manager</h1>
-              <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>Administration</p>
+              <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>{user?.name}</p>
             </div>
           </Link>
 
@@ -52,11 +56,22 @@ export default function NavbarAdmin() {
             >
               Équipes
             </Link>
+            {user?.SuperAdmin && (
+            <Link 
+              href="/admin/gestion" 
+              className={`text-sm nav-link ${isActive('/admin/gestion') ? 'font-medium' : ''}`}
+              style={{ color: isActive('/admin/gestion') ? '#d87943' : 'var(--foreground)' }}
+            >
+              Gestion
+            </Link>
+            )}
+
             <div className="h-6 w-px" style={{ background: 'var(--border)' }}></div>
             <Link 
-              href="/auth/login" 
+              href="/" 
               className="text-sm nav-link flex items-center gap-2"
               style={{ color: 'var(--foreground)' }}
+              onClick={logout}
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
