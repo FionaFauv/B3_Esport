@@ -562,3 +562,570 @@ body {
   font-size: 0.875rem;
 }
 
+/* ================================================================================
+/* ========================================
+   CONTACT PAGE - Hero Section
+   ======================================== */
+
+/* Hero Section avec fond gradient */
+.contact-hero {
+  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1) 0%, rgba(var(--color-primary-rgb), 0.05) 100%);
+}
+
+/* Titre principal de la page contact */
+.contact-hero-title {
+  font-size: clamp(2.5rem, 5vw, 3rem);
+  font-weight: bold;
+  margin-bottom: 1rem;
+  color: var(--foreground);
+}
+
+/* Description de la page contact */
+.contact-hero-description {
+  font-size: 1.25rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--foreground);
+  opacity: 0.7;
+}
+
+/* ========================================
+   Réseaux Sociaux Section
+   ======================================== */
+
+/* Card de contact */
+.contact-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+
+/* Icône de la card de contact */
+.contact-card-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+/* Icône Email */
+.contact-card-icon-email {
+  background: rgba(var(--color-primary-rgb), 0.2);
+}
+
+.contact-card-icon-email svg {
+  color: var(--color-primary);
+}
+
+/* Icône Discord */
+.contact-card-icon-discord {
+  background: rgba(88, 101, 242, 0.2);
+}
+
+.contact-card-icon-discord svg {
+  color: #5865F2;
+}
+
+/* Icône Twitter */
+.contact-card-icon-twitter {
+  background: rgba(29, 155, 240, 0.2);
+}
+
+.contact-card-icon-twitter svg {
+  color: #1DA1F2;
+}
+
+/* Titre de la card de contact */
+.contact-card-title {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  color: var(--foreground);
+}
+
+/* Description de la card */
+.contact-card-description {
+  font-size: 0.875rem;
+  margin-bottom: 0.75rem;
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+/* Lien de contact */
+.contact-card-link {
+  font-size: 0.875rem;
+  font-weight: 500;
+  transition: opacity 0.2s ease;
+}
+
+.contact-card-link:hover {
+  opacity: 0.8;
+}
+
+/* Lien Email */
+.contact-card-link-email {
+  color: var(--color-primary);
+}
+
+/* Lien Discord */
+.contact-card-link-discord {
+  color: #5865F2;
+}
+
+/* Lien Twitter */
+.contact-card-link-twitter {
+  color: #1DA1F2;
+}
+
+/* ========================================
+   CONTACT PAGE - FAQ Section
+   ======================================== */
+
+/* Titre principal FAQ */
+.faq-title {
+  font-size: clamp(1.875rem, 4vw, 3rem);
+  font-weight: bold;
+  margin-bottom: 2rem;
+  text-align: center;
+  color: var(--foreground);
+}
+
+/* Card FAQ */
+.faq-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+}
+
+/* Question avec icône */
+.faq-question {
+  font-size: 1.125rem;
+  font-weight: bold;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  color: var(--foreground);
+}
+
+/* Icône point d'interrogation */
+.faq-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #ffffff;
+  font-weight: bold;
+  font-size: 0.875rem;
+  flex-shrink: 0;
+}
+
+/* Réponse */
+.faq-answer {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  opacity: 0.7;
+  line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .faq-title {
+    font-size: 1.875rem;
+    margin-bottom: 1.5rem;
+  }
+  
+  .faq-question {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   EXPLICATION PAGE
+   Styles pour la page des fonctionnalités
+   ======================================== */
+
+/* Badge de fonctionnalité */
+.explication-badge {
+  background: linear-gradient(135deg, rgba(216, 121, 67, 0.15) 0%, rgba(255, 107, 53, 0.15) 100%);
+  border: 1px solid rgba(216, 121, 67, 0.3);
+  color: var(--color-primary);
+}
+
+/* Titres */
+.explication-title {
+  font-size: clamp(1.875rem, 4vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  color: var(--foreground);
+}
+
+.explication-description {
+  font-size: 1.125rem;
+  line-height: 1.8;
+  color: var(--foreground);
+  opacity: 0.85;
+}
+
+/* Liste de fonctionnalités */
+.explication-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.explication-list-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-size: 1rem;
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.explication-list-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  margin-top: 0.125rem;
+  color: var(--color-primary);
+}
+
+/* Conteneur visuel */
+.explication-visual {
+  position: relative;
+  width: 100%;
+}
+
+/* Carte d'illustration */
+.explication-card {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.explication-card:hover {
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
+  transform: translateY(-4px);
+}
+
+/* Carte de match */
+.explication-match-card {
+  background: rgba(var(--background-rgb), 0.5);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.explication-match-card:hover {
+  background: rgba(var(--background-rgb), 0.8);
+  border-color: var(--color-primary);
+}
+
+/* Logo d'équipe */
+.explication-team-logo {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 0.5rem;
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.875rem;
+  color: #ffffff;
+}
+
+/* Cote */
+.explication-odd {
+  font-size: 1.5rem;
+  font-weight: 800;
+  color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(216, 121, 67, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+
+/* Carte de pari */
+.explication-bet-card {
+  background: rgba(var(--background-rgb), 0.5);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1rem;
+  transition: all 0.2s ease;
+}
+
+.explication-bet-card:hover {
+  background: rgba(var(--background-rgb), 0.8);
+}
+
+.explication-bet-won {
+  border-color: #22c55e;
+  background: rgba(34, 197, 94, 0.05);
+}
+
+/* Statuts */
+.explication-status-live {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.explication-status-pending {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(245, 158, 11, 0.15);
+  color: #f59e0b;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.explication-status-won {
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  background: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+/* Barre de progression */
+.explication-progress {
+  width: 100%;
+  height: 0.5rem;
+  background: rgba(var(--background-rgb), 0.3);
+  border-radius: 9999px;
+  overflow: hidden;
+  margin-top: 0.75rem;
+}
+
+.explication-progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
+  border-radius: 9999px;
+  transition: width 0.3s ease;
+}
+
+/* Responsive */
+@media (max-width: 1024px) {
+  .explication-title {
+    font-size: 1.875rem;
+  }
+  
+  .explication-description {
+    font-size: 1rem;
+  }
+}
+
+/* ========================================
+   LEGAL PAGES (Mentions, Confidentialité, Jeu Responsable)
+   Styles pour les pages légales
+   ======================================== */
+
+/* Conteneur principal */
+.legal-content {
+  color: var(--foreground);
+}
+
+/* Section légale */
+.legal-section {
+  margin-bottom: 3rem;
+}
+
+.legal-section:last-child {
+  margin-bottom: 0;
+}
+
+/* Titres de section */
+.legal-section-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--color-primary);
+}
+
+/* Texte */
+.legal-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: var(--foreground);
+  opacity: 0.9;
+  margin-bottom: 1rem;
+}
+
+.legal-text:last-child {
+  margin-bottom: 0;
+}
+
+/* Texte mis en avant */
+.legal-highlight {
+  font-size: 1.125rem;
+  font-weight: 500;
+  background: linear-gradient(135deg, rgba(216, 121, 67, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border-left: 4px solid var(--color-primary);
+}
+
+/* Listes */
+.legal-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.legal-list li {
+  padding-left: 2rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  line-height: 1.8;
+  color: var(--foreground);
+  opacity: 0.9;
+}
+
+.legal-list li::before {
+  content: "▸";
+  position: absolute;
+  left: 0.5rem;
+  color: var(--color-primary);
+  font-weight: bold;
+}
+
+/* Liens */
+.legal-link {
+  color: var(--color-primary);
+  text-decoration: underline;
+  transition: opacity 0.2s ease;
+}
+
+.legal-link:hover {
+  opacity: 0.8;
+}
+
+/* Date de mise à jour */
+.legal-update {
+  font-size: 0.875rem;
+  color: var(--foreground);
+  opacity: 0.7;
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+/* Bloc d'avertissement */
+.legal-warning {
+  background: rgba(245, 158, 11, 0.1);
+  border: 2px solid #f59e0b;
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.legal-warning .legal-text {
+  margin-bottom: 0;
+  color: var(--foreground);
+}
+
+/* Outils de contrôle (Jeu Responsable) */
+.legal-tool {
+  background: var(--background);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.legal-tool:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 4px 12px rgba(216, 121, 67, 0.15);
+}
+
+.legal-tool-title {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 0.75rem;
+}
+
+/* Cartes d'aide */
+.legal-help-card {
+  background: linear-gradient(135deg, rgba(216, 121, 67, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
+  border: 2px solid rgba(216, 121, 67, 0.2);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.legal-help-card:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 6px 16px rgba(216, 121, 67, 0.2);
+  transform: translateY(-2px);
+}
+
+.legal-help-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+/* Message final */
+.legal-final-message {
+  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
+  border: 2px solid rgba(34, 197, 94, 0.3);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.legal-final-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--foreground);
+  margin-bottom: 1rem;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .legal-section-title {
+    font-size: 1.25rem;
+  }
+  
+  .legal-text {
+    font-size: 0.9375rem;
+  }
+  
+  .legal-tool,
+  .legal-help-card,
+  .legal-final-message {
+    padding: 1.25rem;
+  }
+  
+  .legal-list li {
+    padding-left: 1.5rem;
+  }
+}
+
+
+

@@ -6,8 +6,7 @@
 
 export const ROUTES = {
   HOME: '/',
-  PARIS: '/visiteur/paris',
-  MATCHS: '/visiteur/matchs',
+  EXPLICATION: '/front-site/explication',
   CONTACT: '/front-site/contact',
   
   AUTH: {
@@ -29,9 +28,9 @@ export const ROUTES = {
   },
   
   LEGAL: {
-    MENTIONS: '/mentions-legales',
-    PRIVACY: '/confidentialite',
-    RESPONSIBLE_GAMING: '/jeu-responsable',
+    MENTIONS: '/front-site/extra/mentions-legales',
+    PRIVACY: '/front-site/extra/confidentialite',
+    RESPONSIBLE_GAMING: '/front-site/extra/jeu-responsable',
   },
   
   SOCIAL: {
@@ -47,7 +46,6 @@ export const ROUTES = {
  */
 export const NAV_MENU_ITEMS = [
   { href: ROUTES.HOME, label: 'Accueil' },
-  { href: ROUTES.PARIS, label: 'Paris' },
-  { href: ROUTES.MATCHS, label: 'Matchs' },
+  { href: ROUTES.EXPLICATION, label: 'Comment ça marche ?' },
   { href: ROUTES.CONTACT, label: 'Contact' },
 ] as const
