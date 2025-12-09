@@ -35,7 +35,7 @@ export default function ChoiceSection() {
           
           {/* Bouton secondaire - Découvrir */}
           <Link 
-            href={ROUTES.PARIS}
+            href={ROUTES.AUTH.LOGIN}
             className="cta-btn-secondary"
           >
             Découvrir les paris

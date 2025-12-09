@@ -3,6 +3,7 @@
 import React from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
+import { SlideInFromBottom, StaggerContainer } from '@/components/animations'
 
 /**
  * Section Live Riot Games
@@ -12,6 +13,7 @@ export default function LiveRiotGamesSection() {
   return (
     <Section paddingY='small'>
       <Container>
+        <StaggerContainer>
         <div className="rounded-xl overflow-hidden border twitch-player-container">
           {/* Header du live */}
           <div className="px-6 py-4 border-b flex items-center justify-between twitch-player-header">
@@ -23,7 +25,9 @@ export default function LiveRiotGamesSection() {
                 </svg>
                 <span className="text-sm font-medium">REDIFFUSION</span>
               </div>
-              <h2 className="text-2xl font-bold text-white">Riot Games Official</h2>
+              <SlideInFromBottom>
+                <h2 className="text-2xl font-bold text-white">Riot Games Official</h2>
+              </SlideInFromBottom>
             </div>
             
             {/* Bouton Ouvrir sur Twitch */}
@@ -50,6 +54,7 @@ export default function LiveRiotGamesSection() {
             />
           </div>
         </div>
+        </StaggerContainer>
       </Container>
     </Section>
   )

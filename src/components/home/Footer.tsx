@@ -85,18 +85,8 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.PARIS} className="footer-link">
-                  Paris
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.ADMIN.EQUIPES} className="footer-link">
-                  Équipes
-                </Link>
-              </li>
-              <li>
-                <Link href={ROUTES.MATCHS} className="footer-link">
-                  Matchs
+                <Link href={ROUTES.EXPLICATION} className="footer-link">
+                  Comment ça marche ?
                 </Link>
               </li>
               <li>
