@@ -9,15 +9,19 @@ import LiveRiotGamesSection from '@/components/home/LiveRiotGamesSection'
 export default function HomePage() {
   return (
     <>
+        {/** Menu - navigation*/}
       <Menu />
 
+        {/** Section Hero */}
         <HeroSection />
+        {/** Section Streams LoL et Sidebar */}
         <LiveRiotGamesSection />
+        {/** Section Streams LoL et Sidebar */}
         <StreamLolSection />
+        {/** Section Call-to-Action */}
         <ChoiceSection />
-    
+      {/** Footer */}
       <Footer />
     </>
   )
 }
- 
