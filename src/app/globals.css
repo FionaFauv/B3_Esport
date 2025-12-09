@@ -1,11 +1,44 @@
 @import "tailwindcss";
 
+/* ========================================
+   CSS VARIABLES - Application Colors
+   Centralise toutes les couleurs de l'application
+   ======================================== */
+
+:root {
+  /* Primary Colors */
+  --color-primary: #d87943;
+  --color-primary-light: #ff6b35;
+  --color-primary-dark: #b85e32;
+  
+  /* Primary RGB (pour rgba()) */
+  --color-primary-rgb: 216, 121, 67;
+  
+  /* Twitch Brand */
+  --color-twitch: #9146FF;
+  
+  /* Status Colors */
+  --color-status-live: #22c55e;
+  --color-status-offline: #ef4444;
+  --color-status-replay: #f59e0b;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, #d87943 0%, #ff6b35 100%);
+  --gradient-primary-reverse: linear-gradient(135deg, #ff6b35 0%, #d87943 100%);
+  
+  /* Shadows */
+  --shadow-primary: 0 4px 15px rgba(216, 121, 67, 0.4);
+  --shadow-primary-hover: 0 6px 20px rgba(216, 121, 67, 0.5);
+  --shadow-card: 0 20px 40px rgba(216, 121, 67, 0.15);
+}
+
 [data-theme="light"] {
   --background: #e7dfdf;
   --foreground: #111827;
   --primary: #b85e2b;
   --primary-foreground: #ecdcdc;
   --border: rgba(67, 66, 66, 0.2);
+  --background-rgb: 231, 223, 223;
 }
 
 theme inline {
@@ -24,6 +57,7 @@ theme inline {
   --primary: #d87943;
   --primary-foreground: #ffffff;
   --border: rgba(200, 200, 200, 0.2);
+  --background-rgb: 23, 23, 23;
 }
 
 body {
@@ -64,18 +98,18 @@ body {
 /* Effet néon orangé minimaliste */
 .neon-text {
   text-shadow: 
-    0 0 10px rgba(216, 121, 67, 0.3),
-    0 0 20px rgba(216, 121, 67, 0.2),
-    0 0 30px rgba(216, 121, 67, 0.1);
+    0 0 10px rgba(var(--color-primary-rgb), 0.3),
+    0 0 20px rgba(var(--color-primary-rgb), 0.2),
+    0 0 30px rgba(var(--color-primary-rgb), 0.1);
 }
 
 .neon-text-strong {
   text-shadow: 
-    0 0 5px rgba(216, 121, 67, 0.5),
-    0 0 10px rgba(216, 121, 67, 0.4),
-    0 0 20px rgba(216, 121, 67, 0.3),
-    0 0 40px rgba(216, 121, 67, 0.2);
-  color: #d87943;
+    0 0 5px rgba(var(--color-primary-rgb), 0.5),
+    0 0 10px rgba(var(--color-primary-rgb), 0.4),
+    0 0 20px rgba(var(--color-primary-rgb), 0.3),
+    0 0 40px rgba(var(--color-primary-rgb), 0.2);
+  color: var(--color-primary);
 }
 
 /* Effets hover pour la navigation */
@@ -91,7 +125,7 @@ body {
   left: 0;
   width: 0;
   height: 2px;
-  background: linear-gradient(90deg, #d87943, #ff9d6f);
+  background: var(--gradient-primary);
   transition: width 0.3s ease;
 }
 
@@ -100,7 +134,7 @@ body {
 }
 
 .nav-link:hover {
-  color: #d87943;
+  color: var(--color-primary);
   transform: translateY(-2px);
 }
 
@@ -117,7 +151,7 @@ body {
   left: -100%;
   width: 100%;
   height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(216, 121, 67, 0.1), transparent);
+  background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.1), transparent);
   transition: left 0.5s ease;
 }
 
@@ -127,7 +161,7 @@ body {
 
 .nav-button:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(216, 121, 67, 0.2);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
 }
 
 /* Effets hover pour les icônes sociales */
@@ -137,7 +171,7 @@ body {
 
 .social-icon:hover {
   transform: translateY(-3px) scale(1.1);
-  filter: drop-shadow(0 4px 8px rgba(216, 121, 67, 0.3));
+  filter: drop-shadow(0 4px 8px rgba(var(--color-primary-rgb), 0.3));
 }
 
 /* Effets hover pour les liens du footer */
@@ -154,7 +188,7 @@ body {
   bottom: -2px;
   width: 0;
   height: 1px;
-  background: linear-gradient(90deg, #d87943, #ff9d6f);
+  background: var(--gradient-primary);
   transition: width 0.3s ease;
 }
 
@@ -163,7 +197,7 @@ body {
 }
 
 .footer-link:hover {
-  color: #d87943 !important;
+  color: var(--color-primary) !important;
   opacity: 1 !important;
   transform: translateX(4px);
 }
@@ -175,7 +209,7 @@ body {
 
 .card-hover:hover {
   transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(216, 121, 67, 0.15);
+  box-shadow: var(--shadow-card);
 }
 
 /* Nouvelles animations pour la page d'accueil */
@@ -190,10 +224,10 @@ body {
 
 @keyframes glow {
   0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(216, 121, 67, 0.5));
+    filter: drop-shadow(0 0 10px rgba(var(--color-primary-rgb), 0.5));
   }
   50% {
-    filter: drop-shadow(0 0 20px rgba(216, 121, 67, 0.8));
+    filter: drop-shadow(0 0 20px rgba(var(--color-primary-rgb), 0.8));
   }
 }
 
@@ -212,10 +246,10 @@ body {
 
 @keyframes pulse-glow {
   0%, 100% {
-    box-shadow: 0 0 20px rgba(216, 121, 67, 0.3);
+    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
   }
   50% {
-    box-shadow: 0 0 40px rgba(216, 121, 67, 0.6);
+    box-shadow: 0 0 40px rgba(var(--color-primary-rgb), 0.6);
   }
 }
 
@@ -281,3 +315,250 @@ body {
   background-size: 200% 200%;
   animation: gradient-shift 3s ease infinite;
 }
+
+/* ========================================
+   SECTION 'HOME'
+   ======================================== */
+
+/* Navigation bar backdrop */
+.nav-backdrop {
+  background-color: rgba(var(--background-rgb), 0.8);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
+}
+
+/* Logo container */
+.nav-logo {
+  background: var(--gradient-primary);
+  box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+  transition: transform 0.3s ease;
+}
+
+.nav-logo:hover {
+  transform: scale(1.1);
+}
+
+/* Logo subtitle */
+.nav-logo-subtitle {
+  color: var(--foreground);
+  opacity: 0.6;
+}
+
+/* Active navigation link */
+.nav-link-active {
+  color: var(--color-primary);
+}
+
+/* Navigation buttons */
+.nav-btn-outline {
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  transition: all 0.2s ease;
+}
+
+.nav-btn-outline:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
+}
+
+.nav-btn-solid {
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: var(--shadow-primary);
+  transition: all 0.2s ease;
+}
+
+.nav-btn-solid:hover {
+  transform: scale(1.05);
+  box-shadow: var(--shadow-primary-hover);
+}
+
+/* ========================================
+   LIVE RIOT GAMES SECTION - Twitch 
+   ======================================== */
+
+/* Conteneur principal du player Twitch */
+.twitch-player-container {
+  background-color: #18181b;
+  border-color: rgba(var(--color-primary-rgb), 0.3);
+}
+
+/* Header du player */
+.twitch-player-header {
+  border-color: rgba(128, 128, 128, 0.2);
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+/* Badge Rediffusion/Live */
+.twitch-status-badge {
+  background-color: rgba(145, 70, 255, 0.1);
+  border: 1px solid rgba(145, 70, 255, 0.3);
+  color: var(--color-twitch);
+}
+
+.twitch-status-badge svg {
+  color: var(--color-twitch);
+}
+
+/* Bouton "Ouvrir sur Twitch" */
+.twitch-open-button {
+  background-color: var(--color-twitch);
+  color: white;
+  transition: all 0.2s ease;
+}
+
+.twitch-open-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 4px 15px rgba(145, 70, 255, 0.4);
+}
+
+/* Conteneur iframe responsive 16:9 */
+.twitch-iframe-wrapper {
+  position: relative;
+  width: 100%;
+  padding-bottom: 56.25%; /* Ratio 16:9 = 9/16 * 100 */
+}
+
+.twitch-iframe-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ========================================
+   STREAM LOL SECTION - Liste des streams
+   ======================================== */
+
+/* Conteneur principal de la section streams */
+.streams-container {
+  background-color: #27272a;
+  border: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* Badge Live (orange) */
+.live-badge {
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
+}
+
+.live-badge-text {
+  color: var(--color-primary);
+}
+
+/* Point de pulsation Live */
+.live-pulse-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background-color: var(--color-primary);
+  border-radius: 9999px;
+  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+/* ========================================
+   CHOICE SECTION
+   ======================================== */
+
+/* Titre principal de la section CTA */
+.cta-title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: bold;
+  margin-bottom: 1.5rem;
+  color: var(--foreground);
+}
+
+/* Description de la section CTA */
+.cta-description {
+  font-size: 1.25rem;
+  margin-bottom: 2rem;
+  max-width: 42rem;
+  margin-left: auto;
+  margin-right: auto;
+  color: var(--foreground);
+  opacity: 0.7;
+}
+
+/* Bouton primaire CTA (gradient orange) */
+.cta-btn-primary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  background: var(--gradient-primary);
+  color: white;
+  box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
+  transition: all 0.2s ease;
+}
+
+.cta-btn-primary:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.5);
+}
+
+/* Bouton secondaire CTA (outline) */
+.cta-btn-secondary {
+  display: inline-block;
+  padding: 1rem 2rem;
+  border-radius: 0.5rem;
+  font-weight: bold;
+  font-size: 1.125rem;
+  border: 2px solid var(--color-primary);
+  color: var(--color-primary);
+  transition: all 0.2s ease;
+}
+
+.cta-btn-secondary:hover {
+  transform: scale(1.05);
+  background-color: rgba(var(--color-primary-rgb), 0.1);
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+/* Footer principal */
+.footer-main {
+  background-color: var(--background);
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+}
+
+/* Description du footer */
+.footer-description {
+  color: var(--foreground);
+  opacity: 0.7;
+  margin-bottom: 1rem;
+}
+
+/* Titre de section du footer */
+.footer-section-title {
+  color: var(--foreground);
+  font-size: 1.125rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+/* Séparateur du footer */
+.footer-divider {
+  border-top: 1px solid rgba(128, 128, 128, 0.2);
+  margin-top: 2rem;
+  padding-top: 2rem;
+}
+
+/* Copyright et texte légal */
+.footer-copyright {
+  color: var(--foreground);
+  opacity: 0.6;
+  font-size: 0.875rem;
+}
+
+/* Avertissement jeu responsable */
+.footer-warning {
+  color: var(--foreground);
+  opacity: 0.6;
+  font-size: 0.875rem;
+}
+
