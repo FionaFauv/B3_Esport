@@ -2,6 +2,7 @@
 
 import React from 'react'
 import { Section } from '@/components/ui/section'
+import { Container } from '@/components/ui/container'
 
 /**
  * Hero Section de la page Contact
@@ -9,15 +10,15 @@ import { Section } from '@/components/ui/section'
  */
 export default function HeroSection() {
   return (
-    <Section paddingY="large" className="contact-hero">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-        <h1 className="contact-hero-title">
+    <Section paddingY="large">
+      <Container className="pt-12 text-center">
+        <h1 className="meru-title-main">
           Contactez-nous
         </h1>
-        <p className="contact-hero-description">
+        <p className="meru-subtitle">
           Une question, une suggestion ou besoin d&apos;aide ? Notre équipe est là pour vous répondre.
         </p>
-      </div>
+      </Container>
     </Section>
   )
 }
