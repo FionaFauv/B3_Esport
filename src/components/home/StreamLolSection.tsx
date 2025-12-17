@@ -4,7 +4,6 @@ import React from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import TwitchLiveStreams from '@/components/Twitch/TwitchLiveStreams'
-import ResourcesSidebar from '@/components/Twitch/ResourcesSidebar'
 
 /**
  * Section League of Legends Streams
@@ -12,41 +11,45 @@ import ResourcesSidebar from '@/components/Twitch/ResourcesSidebar'
  */
 export default function StreamLolSection() {
   return (
-    <Section>
+    <Section paddingY='large'>
       <Container>
-        {/* Container avec fond gris foncé */}
-        <div className="rounded-xl p-8 streams-container">
+        {/* Titre de la section */}
+        <div className="text-center mb-8">
+          <h2 className="meru-title-section">
+            Streams en Direct
+          </h2>
+          <p className="meru-subtitle">
+            Regardez les meilleurs streamers français de League of Legends
+          </p>
+        </div>
+
+        <div className="meru-stream-container">
           <div className="flex flex-col lg:flex-row gap-8">
             
             {/* Section principale - Streams League of Legends */}
             <div className="flex-1">
-              <div className="mb-6">
-                {/* En-tête avec badge Live */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div className="flex items-center gap-2 px-3 py-1 rounded-full live-badge">
-                    <span className="live-pulse-dot"></span>
-                    <span className="text-sm font-medium live-badge-text">
+              <div className="meru-stream-header">
+                {/* En-tête avec badge Live et titre */}
+                <div className="meru-stream-title-wrapper">
+                  <div className="meru-stream-live-badge">
+                    <span className="meru-stream-live-dot"></span>
+                    <span className="meru-stream-live-text">
                       Live
                     </span>
                   </div>
-                  <h2 className="text-3xl font-bold text-white">
+                  <h2 className="meru-title-component">
                     League of Legends
                   </h2>
                 </div>
                 
                 {/* Description */}
-                <p className="text-white opacity-70">
+                <p className="meru-description">
                   Les meilleurs streamers français en direct
                 </p>
               </div>
 
               {/* Grid des streams */}
               <TwitchLiveStreams />
-            </div>
-
-            {/* Sidebar droite - Guides et ressources */}
-            <div className="lg:w-80">
-              <ResourcesSidebar />
             </div>
           </div>
         </div>

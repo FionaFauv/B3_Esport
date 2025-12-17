@@ -1,32 +1,30 @@
 import Link from 'next/link'
 import { ROUTES } from '@/lib/constants/routes'
-
 /**
  * Footer principal de l'application
  * Contient navigation, liens légaux et réseaux sociaux
  */
 export default function Footer() {
   return (
-    <footer className="footer-main">
-      <div className="container mx-auto px-6 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <footer className="meru-footer">
+      <div className="meru-footer-container">
+        <div className="meru-footer-grid">
           
           {/* Logo et Description */}
-          <div className="col-span-1 md:col-span-2">
-            <h3 className="text-2xl font-bold mb-4 neon-text-strong">ESPORT ZONE</h3>
-            <p className="footer-description">
+          <div className="meru-footer-logo-section">
+            <h3 className="text-xl meru-nav-title">ESPORT ZONE</h3>
+            <p className="meru-footer-description">
               Votre plateforme esport centrée sur League of Legends et VALORANT. 
               Suivez les streams, les équipes et restez connecté à la scène compétitive.
             </p>
             
             {/* Réseaux sociaux */}
-            <div className="flex space-x-4">
+            <div className="meru-footer-socials">
               <a 
                 href={ROUTES.SOCIAL.TWITTER} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-icon" 
-                style={{ color: 'var(--foreground)' }} 
+                className="meru-footer-social-icon"
                 aria-label="Twitter"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -38,8 +36,7 @@ export default function Footer() {
                 href={ROUTES.SOCIAL.DISCORD} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-icon" 
-                style={{ color: 'var(--foreground)' }} 
+                className="meru-footer-social-icon"
                 aria-label="Discord"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -51,8 +48,7 @@ export default function Footer() {
                 href={ROUTES.SOCIAL.YOUTUBE} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-icon" 
-                style={{ color: 'var(--foreground)' }} 
+                className="meru-footer-social-icon"
                 aria-label="YouTube"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -64,8 +60,7 @@ export default function Footer() {
                 href={ROUTES.SOCIAL.TWITCH} 
                 target="_blank" 
                 rel="noopener noreferrer"
-                className="social-icon" 
-                style={{ color: 'var(--foreground)' }} 
+                className="meru-footer-social-icon"
                 aria-label="Twitch"
               >
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
@@ -77,20 +72,20 @@ export default function Footer() {
 
           {/* Navigation */}
           <div>
-            <h4 className="footer-section-title">Navigation</h4>
-            <ul className="space-y-2">
+            <h4 className="meru-footer-section-title">Navigation</h4>
+            <ul className="meru-footer-links">
               <li>
-                <Link href={ROUTES.HOME} className="footer-link">
+                <Link href={ROUTES.HOME} className="meru-footer-link">
                   Accueil
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.EXPLICATION} className="footer-link">
+                <Link href={ROUTES.EXPLICATION} className="meru-footer-link">
                   Comment ça marche ?
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.CONTACT} className="footer-link">
+                <Link href={ROUTES.CONTACT} className="meru-footer-link">
                   Contact
                 </Link>
               </li>
@@ -99,20 +94,20 @@ export default function Footer() {
 
           {/* Légal */}
           <div>
-            <h4 className="footer-section-title">Légal</h4>
-            <ul className="space-y-2">
+            <h4 className="meru-footer-section-title">Légal</h4>
+            <ul className="meru-footer-links">
               <li>
-                <Link href={ROUTES.LEGAL.MENTIONS} className="footer-link">
+                <Link href={ROUTES.LEGAL.MENTIONS} className="meru-footer-link">
                   Mentions légales
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.LEGAL.PRIVACY} className="footer-link">
+                <Link href={ROUTES.LEGAL.PRIVACY} className="meru-footer-link">
                   Confidentialité
                 </Link>
               </li>
               <li>
-                <Link href={ROUTES.LEGAL.RESPONSIBLE_GAMING} className="footer-link">
+                <Link href={ROUTES.LEGAL.RESPONSIBLE_GAMING} className="meru-footer-link">
                   Jeu responsable
                 </Link>
               </li>
@@ -121,19 +116,17 @@ export default function Footer() {
         </div>
 
         {/* Séparateur */}
-        <div className="footer-divider">
-          <div className="flex flex-col md:flex-row justify-between items-center">
-            <p className="footer-copyright mb-4 md:mb-0">
+          <div className="meru-footer-bottom">
+            <p className="meru-footer-copyright">
               © 2025 Esport Zone. Tous droits réservés.
             </p>
-            <p className="footer-warning text-center md:text-right">
+            <p className="meru-footer-warning">
               ⚠️ Jouer comporte des risques : endettement, isolement, dépendance.
               <br className="md:hidden" /> 
               Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé).
             </p>
           </div>
         </div>
-      </div>
     </footer>
   )
 }

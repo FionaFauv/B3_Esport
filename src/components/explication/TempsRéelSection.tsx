@@ -4,7 +4,7 @@ import { Container } from '@/components/ui/container'
 
 export default function TempsReelSection() {
     return (
-        <Section paddingY="large">
+        <Section paddingY="large" className="bg-transparent">
             <Container>
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                     {/* Illustration visuelle */}

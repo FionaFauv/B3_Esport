@@ -78,7 +78,7 @@ export default function ParisSection() {
                         </div>
                       </div>
                     </div>
-                    <button className="cta-btn-primary w-full mt-6">
+                    <button className="meru-btn-primary w-full mt-6">
                       Placer un pari
                     </button>
                   </div>

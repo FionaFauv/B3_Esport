@@ -1,1131 +1,848 @@
 @import "tailwindcss";
 
 /* ========================================
-   CSS VARIABLES - Application Colors
-   Centralise toutes les couleurs de l'application
+   CSS VARIABLES - Meru Colors Palette
    ======================================== */
 
 :root {
-  /* Primary Colors */
-  --color-primary: #d87943;
-  --color-primary-light: #ff6b35;
-  --color-primary-dark: #b85e32;
+  /* Palette Wine Plum - Nuances */
+  --color-wine-plum-50: rgb(246 238 239);
+  --color-wine-plum-100: rgb(237 222 223);
+  --color-wine-plum-200: rgb(220 188 190);
+  --color-wine-plum-300: rgb(202 155 158);
+  --color-wine-plum-400: rgb(185 121 126);
+  --color-wine-plum-500: rgb(167 88 93);
+  --color-wine-plum-600: rgb(134 70 75);
+  --color-wine-plum-700: rgb(100 53 56);
+  --color-wine-plum-800: rgb(67 35 37);
+  --color-wine-plum-900: rgb(33 18 19);
+  --color-wine-plum-950: rgb(23 12 13);
   
-  /* Primary RGB (pour rgba()) */
-  --color-primary-rgb: 216, 121, 67;
-  
-  /* Twitch Brand */
-  --color-twitch: #9146FF;
-  
-  /* Status Colors */
-  --color-status-live: #22c55e;
-  --color-status-offline: #ef4444;
-  --color-status-replay: #f59e0b;
-  
-  /* Gradients */
-  --gradient-primary: linear-gradient(135deg, #d87943 0%, #ff6b35 100%);
-  --gradient-primary-reverse: linear-gradient(135deg, #ff6b35 0%, #d87943 100%);
-  
-  /* Shadows */
-  --shadow-primary: 0 4px 15px rgba(216, 121, 67, 0.4);
-  --shadow-primary-hover: 0 6px 20px rgba(216, 121, 67, 0.5);
-  --shadow-card: 0 20px 40px rgba(216, 121, 67, 0.15);
+  /* Couleurs d'action (constantes) */
+  --bright-gold: #FFE317;
+  --intense-cherry: #B62F34;
+  --scarlet-fire: #FF2F0C;
 }
+
+/* ========================================
+    THEME SYSTEM - Light & Dark Modes
+   ======================================== */
 
 [data-theme="light"] {
-  --background: #e7dfdf;
-  --foreground: #111827;
-  --primary: #b85e2b;
-  --primary-foreground: #ecdcdc;
-  --border: rgba(67, 66, 66, 0.2);
-  --background-rgb: 231, 223, 223;
-}
+  /* Backgrounds */
+  --background: var(--color-wine-plum-50);
+  --foreground: var(--color-wine-plum-100);
+  --foreground-secondary: var(--color-wine-plum-200);
+  --foreground-third: var(--color-wine-plum-300);
+  
+  /* Card & Container */
+  --border-line: var(--color-wine-plum-300);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(255, 255, 255, 0.95);
+  --menu-bg: rgba(246, 238, 239, 0.95);
+  
+  /* Text */
+  --foreground-text: var(--color-wine-plum-900);
+  --text-primary: var(--color-wine-plum-900);
+  --text-secondary: var(--color-wine-plum-700);
+  --text-muted: var(--color-wine-plum-500);
+  --text-action : var(--intense-cherry);
 
-theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  /* Actions */
+  --primary: var(--intense-cherry);
+  --primary-hover: var(--background);
+  --accent: var(--intense-cherry);
+  
+  /* Effects */
+  --shadow-color: rgba(91, 47, 50, 0.15);
+  --border: var(--color-wine-plum-300);
 }
 
 [data-theme="dark"] {
-  --background: #171717;
-  --foreground: #ededed;
-  --primary: #d87943;
-  --primary-foreground: #ffffff;
-  --border: rgba(200, 200, 200, 0.2);
-  --background-rgb: 23, 23, 23;
+  /* Backgrounds */
+  --background: var(--color-wine-plum-800);
+  --foreground: var(--color-wine-plum-700);
+  --foreground-secondary: var(--color-wine-plum-600);
+  --foreground-third: var(--color-wine-plum-500);
+  
+  /* Card & Container */
+  --border-line: var(--color-wine-plum-950);
+  --card-bg: var(--color-wine-plum-700);
+  --card-bg-hover: var(--color-wine-plum-600);
+  --menu-bg: rgba(67, 35, 37, 0.95);
+  
+  /* Text */
+  --foreground-text: var(--color-wine-plum-50);
+  --text-primary: var(--color-wine-plum-50);
+  --text-secondary: var(--color-wine-plum-100);
+  --text-muted: var(--color-wine-plum-300);
+  --text-action : white;
+  
+  /* Actions */
+  --primary: var(--intense-cherry);
+  --primary-hover: var(--intense-cherry);
+  --accent: var(--bright-gold);
+  
+  /* Effects */
+  --shadow-color: rgba(182, 47, 52, 0.25);
+  --border: var(--color-wine-plum-600);
 }
 
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background-color: var(--background);
   font-family: Arial, Helvetica, sans-serif;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Animations personnalisées */
+a,
+button {
+  cursor: pointer;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
 @keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
 
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Effet néon orangé minimaliste */
-.neon-text {
-  text-shadow: 
-    0 0 10px rgba(var(--color-primary-rgb), 0.3),
-    0 0 20px rgba(var(--color-primary-rgb), 0.2),
-    0 0 30px rgba(var(--color-primary-rgb), 0.1);
-}
-
-.neon-text-strong {
-  text-shadow: 
-    0 0 5px rgba(var(--color-primary-rgb), 0.5),
-    0 0 10px rgba(var(--color-primary-rgb), 0.4),
-    0 0 20px rgba(var(--color-primary-rgb), 0.3),
-    0 0 40px rgba(var(--color-primary-rgb), 0.2);
-  color: var(--color-primary);
-}
-
-/* Effets hover pour la navigation */
-.nav-link {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: var(--gradient-primary);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.nav-link:hover {
-  color: var(--color-primary);
-  transform: translateY(-2px);
-}
-
-.nav-button {
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.nav-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(var(--color-primary-rgb), 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.nav-button:hover::before {
-  left: 100%;
-}
-
-.nav-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
-}
-
-/* Effets hover pour les icônes sociales */
-.social-icon {
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  transform: translateY(-3px) scale(1.1);
-  filter: drop-shadow(0 4px 8px rgba(var(--color-primary-rgb), 0.3));
-}
-
-/* Effets hover pour les liens du footer */
-.footer-link {
-  position: relative;
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-
-.footer-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 1px;
-  background: var(--gradient-primary);
-  transition: width 0.3s ease;
-}
-
-.footer-link:hover::before {
-  width: 100%;
-}
-
-.footer-link:hover {
-  color: var(--color-primary) !important;
-  opacity: 1 !important;
-  transform: translateX(4px);
-}
-
-/* Effet d'élévation pour les cards */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: var(--shadow-card);
-}
-
-/* Nouvelles animations pour la page d'accueil */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(var(--color-primary-rgb), 0.5));
-  }
-  50% {
-    filter: drop-shadow(0 0 20px rgba(var(--color-primary-rgb), 0.8));
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(var(--color-primary-rgb), 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(var(--color-primary-rgb), 0.6);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0%, 100% { box-shadow: 0 0 20px var(--shadow-color); }
+  50% { box-shadow: 0 0 40px var(--shadow-color); }
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-/* Effet de particules scintillantes */
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1);
-  }
-}
-
-/* Gradient animé */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ========================================
-   SECTION 'HOME'
+   REUSABLE COMPONENTS - Typography
    ======================================== */
 
-/* Navigation bar backdrop */
-.nav-backdrop {
-  background-color: rgba(var(--background-rgb), 0.8);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-bottom: 1px solid rgba(var(--color-primary-rgb), 0.2);
+/* Main Page Title */
+.meru-title-main {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
 }
 
-/* Logo container */
-.nav-logo {
-  background: var(--gradient-primary);
-  box-shadow: 0 4px 15px rgba(var(--color-primary-rgb), 0.3);
+/* Section Title */
+.meru-title-section {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Card/Component Title */
+.meru-title-component {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+/* Small Title */
+.meru-title-small {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle */
+.meru-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Description Text */
+.meru-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Label Text */
+.meru-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Buttons
+   ======================================== */
+
+.meru-btn {
+  font-weight: 700;
+  padding: 0.875rem 2.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.meru-btn-primary {
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.meru-btn-primary:hover {
+  background: var(--primary-hover);
+  color: var(--text-action);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.meru-btn-secondary {
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  background: transparent;
+}
+
+.meru-btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Cards
+   ======================================== */
+
+.meru-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.meru-card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px var(--shadow-color);
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Containers
+   ======================================== */
+
+.meru-container-primary {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+
+.meru-container-primary:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+/* ========================================
+   REUSABLE COMPONENTS - Badges & Status
+   ======================================== */
+
+.meru-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border: 1px solid var(--accent);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   NAVIGATION - Menu & Header
+   ======================================== */
+
+.meru-nav-backdrop {
+  background: var(--menu-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.meru-nav-logo {
   transition: transform 0.3s ease;
 }
 
-.nav-logo:hover {
-  transform: scale(1.1);
-}
-
-/* Logo subtitle */
-.nav-logo-subtitle {
-  color: var(--foreground);
-  opacity: 0.6;
-}
-
-/* Active navigation link */
-.nav-link-active {
-  color: var(--color-primary);
-}
-
-/* Navigation buttons */
-.nav-btn-outline {
-  border: 2px solid var(--color-primary);
-  color: var(--color-primary);
-  transition: all 0.2s ease;
-}
-
-.nav-btn-outline:hover {
+.meru-nav-logo:hover {
   transform: scale(1.05);
-  box-shadow: 0 4px 12px rgba(var(--color-primary-rgb), 0.2);
 }
 
-.nav-btn-solid {
-  background: var(--gradient-primary);
-  color: white;
-  box-shadow: var(--shadow-primary);
-  transition: all 0.2s ease;
-}
-
-.nav-btn-solid:hover {
-  transform: scale(1.05);
-  box-shadow: var(--shadow-primary-hover);
-}
-
-/* ========================================
-   LIVE RIOT GAMES SECTION - Twitch 
-   ======================================== */
-
-/* Conteneur principal du player Twitch */
-.twitch-player-container {
-  background-color: #18181b;
-  border-color: rgba(var(--color-primary-rgb), 0.3);
-}
-
-/* Header du player */
-.twitch-player-header {
-  border-color: rgba(128, 128, 128, 0.2);
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
-/* Badge Rediffusion/Live */
-.twitch-status-badge {
-  background-color: rgba(145, 70, 255, 0.1);
-  border: 1px solid rgba(145, 70, 255, 0.3);
-  color: var(--color-twitch);
-}
-
-.twitch-status-badge svg {
-  color: var(--color-twitch);
-}
-
-/* Bouton "Ouvrir sur Twitch" */
-.twitch-open-button {
-  background-color: var(--color-twitch);
-  color: white;
-  transition: all 0.2s ease;
-}
-
-.twitch-open-button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 4px 15px rgba(145, 70, 255, 0.4);
-}
-
-/* Conteneur iframe responsive 16:9 */
-.twitch-iframe-wrapper {
-  position: relative;
-  width: 100%;
-  padding-bottom: 56.25%; /* Ratio 16:9 = 9/16 * 100 */
-}
-
-.twitch-iframe-wrapper iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border: none;
-}
-
-/* ========================================
-   STREAM LOL SECTION - Liste des streams
-   ======================================== */
-
-/* Conteneur principal de la section streams */
-.streams-container {
-  background-color: #27272a;
-  border: 1px solid rgba(128, 128, 128, 0.2);
-}
-
-/* Badge Live (orange) */
-.live-badge {
-  background-color: rgba(var(--color-primary-rgb), 0.1);
-  border: 1px solid rgba(var(--color-primary-rgb), 0.3);
-}
-
-.live-badge-text {
-  color: var(--color-primary);
-}
-
-/* Point de pulsation Live */
-.live-pulse-dot {
-  width: 0.5rem;
-  height: 0.5rem;
-  background-color: var(--color-primary);
-  border-radius: 9999px;
-  animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-/* ========================================
-   CHOICE SECTION
-   ======================================== */
-
-/* Titre principal de la section CTA */
-.cta-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: bold;
-  margin-bottom: 1.5rem;
-  color: var(--foreground);
-}
-
-/* Description de la section CTA */
-.cta-description {
+.meru-nav-title {
   font-size: 1.25rem;
-  margin-bottom: 2rem;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--foreground);
-  opacity: 0.7;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(255, 227, 23, 0.4));
+  transition: all 0.3s ease;
 }
 
-/* Bouton primaire CTA (gradient orange) */
-.cta-btn-primary {
+.meru-nav-subtitle {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.meru-nav-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.meru-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.meru-nav-link:hover,
+.meru-nav-link-active {
+  color: var(--primary);
+}
+
+.meru-nav-link:hover::after,
+.meru-nav-link-active::after {
+  width: 100%;
+}
+
+.meru-nav-btn-outline {
   display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  font-size: 1.125rem;
-  background: var(--gradient-primary);
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.meru-nav-btn-outline:hover {
+  background: var(--primary);
   color: white;
-  box-shadow: 0 8px 25px rgba(var(--color-primary-rgb), 0.4);
-  transition: all 0.2s ease;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow-color);
 }
 
-.cta-btn-primary:hover {
-  transform: scale(1.05);
-  box-shadow: 0 12px 30px rgba(var(--color-primary-rgb), 0.5);
-}
-
-/* Bouton secondaire CTA (outline) */
-.cta-btn-secondary {
+.meru-nav-btn-solid {
   display: inline-block;
-  padding: 1rem 2rem;
-  border-radius: 0.5rem;
-  font-weight: bold;
-  font-size: 1.125rem;
-  border: 2px solid var(--color-primary);
-  color: var(--color-primary);
-  transition: all 0.2s ease;
+  padding: 0.5rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
 }
 
-.cta-btn-secondary:hover {
-  transform: scale(1.05);
-  background-color: rgba(var(--color-primary-rgb), 0.1);
+.meru-nav-btn-solid:hover {
+  background: var(--primary-hover);
+  color: var(--text-action);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* ========================================
+   NAVIGATION - Theme Toggle
+   ======================================== */
+
+.meru-theme-toggle {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.meru-theme-toggle:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--accent);
+  transform: rotate(180deg) scale(1.05);
+  box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.meru-theme-toggle-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+  transition: all 0.4s ease;
 }
 
 /* ========================================
    FOOTER
    ======================================== */
 
-/* Footer principal */
-.footer-main {
-  background-color: var(--background);
-  border-top: 1px solid rgba(128, 128, 128, 0.2);
+.meru-footer {
+  background: var(--menu-bg);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 8px var(--shadow-color);
+  position: relative;
+  z-index: 50;
 }
 
-/* Description du footer */
-.footer-description {
-  color: var(--foreground);
-  opacity: 0.7;
-  margin-bottom: 1rem;
+.meru-footer-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
 }
 
-/* Titre de section du footer */
-.footer-section-title {
-  color: var(--foreground);
-  font-size: 1.125rem;
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
-
-/* Séparateur du footer */
-.footer-divider {
-  border-top: 1px solid rgba(128, 128, 128, 0.2);
-  margin-top: 2rem;
-  padding-top: 2rem;
-}
-
-/* Copyright et texte légal */
-.footer-copyright {
-  color: var(--foreground);
-  opacity: 0.6;
-  font-size: 0.875rem;
-}
-
-/* Avertissement jeu responsable */
-.footer-warning {
-  color: var(--foreground);
-  opacity: 0.6;
-  font-size: 0.875rem;
-}
-
-/* ================================================================================
-/* ========================================
-   CONTACT PAGE - Hero Section
-   ======================================== */
-
-/* Hero Section avec fond gradient */
-.contact-hero {
-  background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.1) 0%, rgba(var(--color-primary-rgb), 0.05) 100%);
-}
-
-/* Titre principal de la page contact */
-.contact-hero-title {
-  font-size: clamp(2.5rem, 5vw, 3rem);
-  font-weight: bold;
-  margin-bottom: 1rem;
-  color: var(--foreground);
-}
-
-/* Description de la page contact */
-.contact-hero-description {
-  font-size: 1.25rem;
-  max-width: 42rem;
-  margin-left: auto;
-  margin-right: auto;
-  color: var(--foreground);
-  opacity: 0.7;
-}
-
-/* ========================================
-   Réseaux Sociaux Section
-   ======================================== */
-
-/* Card de contact */
-.contact-card {
-  background: var(--background);
-  border: 1px solid var(--border);
-}
-
-/* Icône de la card de contact */
-.contact-card-icon {
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.75rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 1rem;
-}
-
-/* Icône Email */
-.contact-card-icon-email {
-  background: rgba(var(--color-primary-rgb), 0.2);
-}
-
-.contact-card-icon-email svg {
-  color: var(--color-primary);
-}
-
-/* Icône Discord */
-.contact-card-icon-discord {
-  background: rgba(88, 101, 242, 0.2);
-}
-
-.contact-card-icon-discord svg {
-  color: #5865F2;
-}
-
-/* Icône Twitter */
-.contact-card-icon-twitter {
-  background: rgba(29, 155, 240, 0.2);
-}
-
-.contact-card-icon-twitter svg {
-  color: #1DA1F2;
-}
-
-/* Titre de la card de contact */
-.contact-card-title {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  color: var(--foreground);
-}
-
-/* Description de la card */
-.contact-card-description {
-  font-size: 0.875rem;
-  margin-bottom: 0.75rem;
-  color: var(--foreground);
-  opacity: 0.6;
-}
-
-/* Lien de contact */
-.contact-card-link {
-  font-size: 0.875rem;
-  font-weight: 500;
-  transition: opacity 0.2s ease;
-}
-
-.contact-card-link:hover {
-  opacity: 0.8;
-}
-
-/* Lien Email */
-.contact-card-link-email {
-  color: var(--color-primary);
-}
-
-/* Lien Discord */
-.contact-card-link-discord {
-  color: #5865F2;
-}
-
-/* Lien Twitter */
-.contact-card-link-twitter {
-  color: #1DA1F2;
-}
-
-/* ========================================
-   CONTACT PAGE - FAQ Section
-   ======================================== */
-
-/* Titre principal FAQ */
-.faq-title {
-  font-size: clamp(1.875rem, 4vw, 3rem);
-  font-weight: bold;
+.meru-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
   margin-bottom: 2rem;
-  text-align: center;
-  color: var(--foreground);
 }
 
-/* Card FAQ */
-.faq-card {
-  background: var(--background);
-  border: 1px solid var(--border);
+.meru-footer-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 1rem;
 }
 
-/* Question avec icône */
-.faq-question {
-  font-size: 1.125rem;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  color: var(--foreground);
+.meru-footer-description {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
 }
 
-/* Icône point d'interrogation */
-.faq-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 1.5rem;
-  height: 1.5rem;
-  border-radius: 50%;
-  background: var(--color-primary);
-  color: #ffffff;
-  font-weight: bold;
-  font-size: 0.875rem;
-  flex-shrink: 0;
-}
-
-/* Réponse */
-.faq-answer {
-  font-size: 0.875rem;
-  color: var(--foreground);
-  opacity: 0.7;
-  line-height: 1.6;
-}
-
-/* Responsive */
-@media (max-width: 768px) {
-  .faq-title {
-    font-size: 1.875rem;
-    margin-bottom: 1.5rem;
-  }
-  
-  .faq-question {
-    font-size: 1rem;
-  }
-}
-
-/* ========================================
-   EXPLICATION PAGE
-   Styles pour la page des fonctionnalités
-   ======================================== */
-
-/* Badge de fonctionnalité */
-.explication-badge {
-  background: linear-gradient(135deg, rgba(216, 121, 67, 0.15) 0%, rgba(255, 107, 53, 0.15) 100%);
-  border: 1px solid rgba(216, 121, 67, 0.3);
-  color: var(--color-primary);
-}
-
-/* Titres */
-.explication-title {
-  font-size: clamp(1.875rem, 4vw, 2.5rem);
-  font-weight: 800;
-  line-height: 1.2;
-  color: var(--foreground);
-}
-
-.explication-description {
-  font-size: 1.125rem;
-  line-height: 1.8;
-  color: var(--foreground);
-  opacity: 0.85;
-}
-
-/* Liste de fonctionnalités */
-.explication-list {
+.meru-footer-links {
   list-style: none;
   padding: 0;
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-}
-
-.explication-list-item {
-  display: flex;
-  align-items: flex-start;
   gap: 0.75rem;
-  font-size: 1rem;
-  color: var(--foreground);
-  opacity: 0.9;
 }
 
-.explication-list-icon {
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-  margin-top: 0.125rem;
-  color: var(--color-primary);
-}
-
-/* Conteneur visuel */
-.explication-visual {
+.meru-footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
   position: relative;
-  width: 100%;
+  display: inline-block;
 }
 
-/* Carte d'illustration */
-.explication-card {
-  background: var(--background);
-  border: 1px solid var(--border);
-  border-radius: 1rem;
-  padding: 2rem;
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
+.meru-footer-link:hover {
+  color: var(--primary);
 }
 
-.explication-card:hover {
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.15);
-  transform: translateY(-4px);
+.meru-footer-socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
 }
 
-/* Carte de match */
-.explication-match-card {
-  background: rgba(var(--background-rgb), 0.5);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  transition: all 0.2s ease;
-}
-
-.explication-match-card:hover {
-  background: rgba(var(--background-rgb), 0.8);
-  border-color: var(--color-primary);
-}
-
-/* Logo d'équipe */
-.explication-team-logo {
+.meru-footer-social-icon {
   width: 2.5rem;
   height: 2.5rem;
-  border-radius: 0.5rem;
-  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 800;
-  font-size: 0.875rem;
-  color: #ffffff;
-}
-
-/* Cote */
-.explication-odd {
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--color-primary);
-  background: linear-gradient(135deg, rgba(216, 121, 67, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
-  padding: 0.5rem 1rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border);
   border-radius: 0.5rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
 }
 
-/* Carte de pari */
-.explication-bet-card {
-  background: rgba(var(--background-rgb), 0.5);
-  border: 1px solid var(--border);
-  border-radius: 0.75rem;
-  padding: 1rem;
-  transition: all 0.2s ease;
+.meru-footer-social-icon:hover {
+  background: var(--primary);
+  border-color: var(--accent);
+  color: white;
+  transform: translateY(-3px);
 }
 
-.explication-bet-card:hover {
-  background: rgba(var(--background-rgb), 0.8);
+.meru-footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
 }
 
-.explication-bet-won {
-  border-color: #22c55e;
-  background: rgba(34, 197, 94, 0.05);
-}
-
-/* Statuts */
-.explication-status-live {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-.explication-status-pending {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(245, 158, 11, 0.15);
-  color: #f59e0b;
-  border: 1px solid rgba(245, 158, 11, 0.3);
-}
-
-.explication-status-won {
-  font-size: 0.75rem;
-  font-weight: 700;
-  padding: 0.25rem 0.75rem;
-  border-radius: 9999px;
-  background: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-  border: 1px solid rgba(34, 197, 94, 0.3);
-}
-
-/* Barre de progression */
-.explication-progress {
-  width: 100%;
-  height: 0.5rem;
-  background: rgba(var(--background-rgb), 0.3);
-  border-radius: 9999px;
-  overflow: hidden;
-  margin-top: 0.75rem;
-}
-
-.explication-progress-bar {
-  height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-primary-light) 100%);
-  border-radius: 9999px;
-  transition: width 0.3s ease;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .explication-title {
-    font-size: 1.875rem;
-  }
-  
-  .explication-description {
-    font-size: 1rem;
-  }
+.meru-footer-copyright,
+.meru-footer-warning {
+  font-size: 0.875rem;
+  color: var(--text-muted);
 }
 
 /* ========================================
-   LEGAL PAGES (Mentions, Confidentialité, Jeu Responsable)
-   Styles pour les pages légales
+   HOME PAGE - Choice/CTA Section
    ======================================== */
 
-/* Conteneur principal */
-.legal-content {
-  color: var(--foreground);
-}
-
-/* Section légale */
-.legal-section {
+.meru-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
   margin-bottom: 3rem;
 }
 
-.legal-section:last-child {
-  margin-bottom: 0;
+.meru-cta-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
 }
 
-/* Titres de section */
-.legal-section-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin-bottom: 1.5rem;
-  padding-bottom: 0.75rem;
-  border-bottom: 2px solid var(--color-primary);
-}
+/* ========================================
+   HOME PAGE - Games Section (Tabs)
+   ======================================== */
 
-/* Texte */
-.legal-text {
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--foreground);
-  opacity: 0.9;
-  margin-bottom: 1rem;
-}
-
-.legal-text:last-child {
-  margin-bottom: 0;
-}
-
-/* Texte mis en avant */
-.legal-highlight {
-  font-size: 1.125rem;
-  font-weight: 500;
-  background: linear-gradient(135deg, rgba(216, 121, 67, 0.1) 0%, rgba(255, 107, 53, 0.1) 100%);
-  padding: 1.5rem;
-  border-radius: 0.75rem;
-  border-left: 4px solid var(--color-primary);
-}
-
-/* Listes */
-.legal-list {
-  list-style: none;
-  padding-left: 0;
-  margin: 1.5rem 0;
-}
-
-.legal-list li {
-  padding-left: 2rem;
-  margin-bottom: 0.75rem;
-  position: relative;
-  line-height: 1.8;
-  color: var(--foreground);
-  opacity: 0.9;
-}
-
-.legal-list li::before {
-  content: "▸";
-  position: absolute;
-  left: 0.5rem;
-  color: var(--color-primary);
-  font-weight: bold;
-}
-
-/* Liens */
-.legal-link {
-  color: var(--color-primary);
-  text-decoration: underline;
-  transition: opacity 0.2s ease;
-}
-
-.legal-link:hover {
-  opacity: 0.8;
-}
-
-/* Date de mise à jour */
-.legal-update {
-  font-size: 0.875rem;
-  color: var(--foreground);
-  opacity: 0.7;
-  font-style: italic;
-  margin-top: 1rem;
-}
-
-/* Bloc d'avertissement */
-.legal-warning {
-  background: rgba(245, 158, 11, 0.1);
-  border: 2px solid #f59e0b;
-  border-radius: 0.75rem;
-  padding: 1.5rem;
-  margin: 1.5rem 0;
-}
-
-.legal-warning .legal-text {
-  margin-bottom: 0;
-  color: var(--foreground);
-}
-
-/* Outils de contrôle (Jeu Responsable) */
-.legal-tool {
-  background: var(--background);
+.meru-games-tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(12px);
   border: 1px solid var(--border);
+}
+
+.meru-games-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.75rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border);
   border-radius: 0.75rem;
-  padding: 1.5rem;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
 }
 
-.legal-tool:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 4px 12px rgba(216, 121, 67, 0.15);
+.meru-games-tab:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  color: var(--text-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow-color);
 }
 
-.legal-tool-title {
-  font-size: 1.125rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin-bottom: 0.75rem;
-}
-
-/* Cartes d'aide */
-.legal-help-card {
-  background: linear-gradient(135deg, rgba(216, 121, 67, 0.05) 0%, rgba(255, 107, 53, 0.05) 100%);
-  border: 2px solid rgba(216, 121, 67, 0.2);
-  border-radius: 1rem;
-  padding: 2rem;
-  margin-bottom: 1.5rem;
-  transition: all 0.3s ease;
-}
-
-.legal-help-card:hover {
-  border-color: var(--color-primary);
-  box-shadow: 0 6px 16px rgba(216, 121, 67, 0.2);
+.meru-games-tab-active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 8px 25px var(--shadow-color);
   transform: translateY(-2px);
 }
 
-.legal-help-title {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--foreground);
-  margin-bottom: 1rem;
-}
-
-/* Message final */
-.legal-final-message {
-  background: linear-gradient(135deg, rgba(34, 197, 94, 0.1) 0%, rgba(34, 197, 94, 0.05) 100%);
-  border: 2px solid rgba(34, 197, 94, 0.3);
-  border-radius: 1rem;
-  padding: 2rem;
-  text-align: center;
-}
-
-.legal-final-title {
+.meru-games-tab-icon {
   font-size: 1.5rem;
-  font-weight: 700;
-  color: var(--foreground);
+  transition: transform 0.3s ease;
+}
+
+.meru-games-tab:hover .meru-games-tab-icon {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.meru-games-info-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 12px var(--shadow-color));
+  display: inline-block;
+}
+
+.meru-games-detail-card {
+  background: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.meru-games-detail-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* ========================================
+   HOME PAGE - Resources Sidebar
+   ======================================== */
+
+.meru-resources-sidebar {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.meru-resources-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.meru-resources-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.meru-resources-subtitle {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.meru-resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
   margin-bottom: 1rem;
 }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .legal-section-title {
-    font-size: 1.25rem;
+.meru-resource-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  text-decoration: none;
+}
+
+.meru-resource-card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.meru-resource-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.meru-resource-icon {
+  width: 3rem;
+  height: 3rem;
+  min-width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.meru-resource-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.meru-resource-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-name {
+  color: var(--primary);
+}
+
+.meru-resource-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.meru-resource-external {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-external {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+/* ========================================
+   HOME PAGE - Streams Section
+   ======================================== */
+
+.meru-stream-header {
+  margin-bottom: 2rem;
+}
+
+.meru-stream-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.meru-stream-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+}
+
+.meru-stream-live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: white;
+  border-radius: 50%;
+  animation: pulse-glow 2s infinite;
+}
+
+.meru-stream-live-text {
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .meru-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  
-  .legal-text {
-    font-size: 0.9375rem;
-  }
-  
-  .legal-tool,
-  .legal-help-card,
-  .legal-final-message {
-    padding: 1.25rem;
-  }
-  
-  .legal-list li {
-    padding-left: 1.5rem;
+
+  .meru-resources-sidebar {
+    position: static;
   }
 }
 
+@media (max-width: 768px) {
+  .meru-title-section {
+    font-size: 2rem;
+  }
 
+  .meru-subtitle {
+    font-size: 1rem;
+  }
 
+  .meru-btn {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .meru-card {
+    padding: 1.5rem;
+  }
+
+  .meru-container-primary {
+    padding: 1.5rem;
+  }
+
+  .meru-cta-buttons {
+    flex-direction: column;
+  }
+
+  .meru-footer-container {
+    padding: 3rem 1.5rem 1.5rem;
+  }
+}

@@ -13,10 +13,11 @@ export default function ExplicationPage() {
         {/** Hero section */}
         <HeroSection />
         {/** Temps Réel section */}
-        <TempsReelSection />
-        {/** Paris section */}
         <ParisSection />
         {/** Call to Action section */}
+        <TempsReelSection />
+        {/** Paris section */}
+
         <CTASection />
         {/** Footer */}
         <Footer />

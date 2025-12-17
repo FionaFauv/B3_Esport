@@ -46,7 +46,7 @@ export default function TwitchLiveStreams() {
   if (loading) {
     return (
       <div className="flex items-center justify-center py-20">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#d87943]"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[var(--primary)]"></div>
       </div>
     );
   }
@@ -54,7 +54,7 @@ export default function TwitchLiveStreams() {
   if (streams.length === 0) {
     return (
       <div className="text-center py-20">
-        <p style={{ color: 'var(--foreground)', opacity: 0.6 }}>
+        <p className="meru-description">
           Aucun stream français en direct pour le moment
         </p>
       </div>
@@ -69,8 +69,7 @@ export default function TwitchLiveStreams() {
           href={`https://twitch.tv/${stream.userLogin}`}
           target="_blank"
           rel="noopener noreferrer"
-          className="group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
-          style={{ backgroundColor: 'var(--background)', border: '1px solid var(--border)' }}
+          className="meru-card group relative rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 hover:-translate-y-2"
         >
           {/* Thumbnail */}
           <div className="relative h-48 overflow-hidden">
@@ -103,7 +102,7 @@ export default function TwitchLiveStreams() {
           <div className="p-4">
             <div className="flex items-start gap-3">
               {/* Avatar */}
-              <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[#d87943]">
+              <div className="relative w-12 h-12 rounded-full overflow-hidden flex-shrink-0 ring-2 ring-[var(--primary)]">
                 {stream.profileImageUrl ? (
                   <Image
                     src={stream.profileImageUrl}
@@ -112,7 +111,7 @@ export default function TwitchLiveStreams() {
                     className="object-cover"
                   />
                 ) : (
-                  <div className="w-full h-full bg-[#d87943] flex items-center justify-center text-white font-bold">
+                  <div className="w-full h-full flex items-center justify-center text-white font-bold" style={{ backgroundColor: 'var(--primary)' }}>
                     {stream.userName.charAt(0).toUpperCase()}
                   </div>
                 )}
@@ -121,19 +120,19 @@ export default function TwitchLiveStreams() {
               <div className="flex-1 min-w-0">
                 {/* Titre du stream */}
                 <h3 
-                  className="font-semibold text-sm line-clamp-2 mb-1 group-hover:text-[#d87943] transition-colors" 
-                  style={{ color: 'var(--foreground)' }}
+                  className="font-semibold text-sm line-clamp-2 mb-1 transition-colors"
+                  style={{ color: 'var(--text-primary)' }}
                 >
                   {stream.title}
                 </h3>
                 
                 {/* Nom du streamer */}
-                <p className="text-sm font-medium" style={{ color: 'var(--foreground)', opacity: 0.8 }}>
+                <p className="text-sm font-medium" style={{ color: 'var(--text-secondary)' }}>
                   {stream.userName}
                 </p>
                 
                 {/* Jeu */}
-                <p className="text-xs" style={{ color: 'var(--foreground)', opacity: 0.6 }}>
+                <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
                   {stream.gameName}
                 </p>
               </div>

@@ -45,7 +45,6 @@ export const ROUTES = {
  * Navigation
  */
 export const NAV_MENU_ITEMS = [
-  { href: ROUTES.HOME, label: 'Accueil' },
   { href: ROUTES.EXPLICATION, label: 'Comment ça marche ?' },
   { href: ROUTES.CONTACT, label: 'Contact' },
 ] as const

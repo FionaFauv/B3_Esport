@@ -1,11 +1,10 @@
 import React from 'react'
-import { SpanIcon } from '../ui/span-icon'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 
 /**
  * Section FAQ de la page Contact
- * Affiche une liste de questions fréquentes
+ * Affiche une liste de questions fréquentes avec le style Meru
  */
 export default function FAQSection() {
   const faqs = [
@@ -28,29 +27,29 @@ export default function FAQSection() {
   ]
 
   return (
-    <Section>
-        <Container>
-    <div className="mt-16">
-      <h2 className="faq-title">
-        Questions fréquentes
-      </h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {faqs.map((faq, index) => (
-          <div key={index} className="card-hover rounded-xl p-6 faq-card">
-            <h3 className="faq-question">
-              <SpanIcon>
-                ?
-              </SpanIcon>
-              {faq.question}
-            </h3>
-            <p className="faq-answer">
-              {faq.answer}
-            </p>
+    <Section className="meru-faq-section">
+      <Container>
+        <div className="py-16">
+          <h2 className="meru-faq-title">
+            Questions fréquentes
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {faqs.map((faq, index) => (
+              <div key={index} className="rounded-xl p-6 meru-faq-card">
+                <h3 className="meru-faq-question">
+                  <span className="meru-faq-icon">
+                    ?
+                  </span>
+                  {faq.question}
+                </h3>
+                <p className="meru-faq-answer">
+                  {faq.answer}
+                </p>
+              </div>
+            ))}
           </div>
-        ))}
-      </div>
-    </div>
-    </Container>
+        </div>
+      </Container>
     </Section>
   )
 }
