@@ -17,7 +17,7 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-center w-full py-6 px-4 fixed z-50">
-      <div className="flex items-center justify-between  meru-nav-backdrop px-6 py-3 bg-white rounded-full shadow-lg w-full max-w-3xl relative z-10">
+      <div className="flex items-center justify-between meru-nav-backdrop px-6 py-3 bg-white rounded-full shadow-lg w-full max-w-3xl relative z-10">
         <div className="flex items-center">
           <motion.div
             className="w-8 h-8 mr-6"

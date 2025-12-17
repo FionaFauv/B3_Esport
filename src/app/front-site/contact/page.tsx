@@ -1,4 +1,4 @@
-import Menu from '@/components/home/Menu'
+import { Navbar } from '@/components/ui/navbar'
 import HeroSection from '@/components/contact/HeroSection'
 import ReseauxSociauxSection from '@/components/contact/ReseauxSociauxSection'
 import FAQSection from '@/components/contact/FAQSection'
@@ -9,7 +9,7 @@ export default function ContactPage() {
   return (
     <>
         {/** Menu - navigation*/}
-      <Menu />
+      <Navbar />
       
         {/** Section Hero */}
       <HeroSection />
