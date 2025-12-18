@@ -1,283 +1,1076 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-[data-theme="light"] {
-  --background: #e7dfdf;
-  --foreground: #111827;
-  --primary: #b85e2b;
-  --primary-foreground: #ecdcdc;
-  --border: rgba(67, 66, 66, 0.2);
+/* ========================================
+   CSS VARIABLES - Meru Colors Palette
+   ======================================== */
+
+:root {
+  /* Palette Wine Plum - Nuances */
+  --color-wine-plum-50: rgb(246 238 239);
+  --color-wine-plum-100: rgb(237 222 223);
+  --color-wine-plum-200: rgb(220 188 190);
+  --color-wine-plum-300: rgb(202 155 158);
+  --color-wine-plum-400: rgb(185 121 126);
+  --color-wine-plum-500: rgb(167 88 93);
+  --color-wine-plum-600: rgb(134 70 75);
+  --color-wine-plum-700: rgb(100 53 56);
+  --color-wine-plum-800: rgb(67 35 37);
+  --color-wine-plum-900: rgb(33 18 19);
+  --color-wine-plum-950: rgb(23 12 13);
+
+  /* Couleurs d'action (constantes) */
+  --bright-gold: #FFE317;
+  --intense-cherry: #B62F34;
+  --scarlet-fire: #FF2F0C;
 }
 
-theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-primary: var(--primary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-border: var(--border);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+/* ========================================
+    THEME SYSTEM - Light & Dark Modes
+   ======================================== */
+
+[data-theme="light"] {
+  /* Backgrounds */
+  --background: var(--color-wine-plum-50);
+  --foreground: var(--color-wine-plum-100);
+  --foreground-secondary: var(--color-wine-plum-200);
+  --foreground-third: var(--color-wine-plum-300);
+
+  /* Card & Container */
+  --border-line: var(--color-wine-plum-300);
+  --card-bg: rgba(255, 255, 255, 0.8);
+  --card-bg-hover: rgba(255, 255, 255, 0.95);
+  --menu-bg: rgba(246, 238, 239, 0.95);
+
+  /* Text */
+  --foreground-text: var(--color-wine-plum-900);
+  --text-primary: var(--color-wine-plum-900);
+  --text-secondary: var(--color-wine-plum-700);
+  --text-muted: var(--color-wine-plum-500);
+  --text-action : var(--intense-cherry);
+
+  /* Actions */
+  --primary: var(--intense-cherry);
+  --primary-hover: var(--background);
+  --accent: var(--intense-cherry);
+
+  /* Effects */
+  --shadow-color: rgba(91, 47, 50, 0.15);
+  --border: var(--color-wine-plum-300);
 }
 
 [data-theme="dark"] {
-  --background: #171717;
-  --foreground: #ededed;
-  --primary: #d87943;
-  --primary-foreground: #ffffff;
-  --border: rgba(200, 200, 200, 0.2);
+  /* Backgrounds */
+  --background: var(--color-wine-plum-800);
+  --foreground: var(--color-wine-plum-700);
+  --foreground-secondary: var(--color-wine-plum-600);
+  --foreground-third: var(--color-wine-plum-500);
+
+  /* Card & Container */
+  --border-line: var(--color-wine-plum-950);
+  --card-bg: var(--color-wine-plum-700);
+  --card-bg-hover: var(--color-wine-plum-600);
+  --menu-bg: rgba(67, 35, 37, 0.95);
+
+  /* Text */
+  --foreground-text: var(--color-wine-plum-50);
+  --text-primary: var(--color-wine-plum-50);
+  --text-secondary: var(--color-wine-plum-100);
+  --text-muted: var(--color-wine-plum-300);
+  --text-action : white;
+
+  /* Actions */
+  --primary: var(--intense-cherry);
+  --primary-hover: var(--intense-cherry);
+  --accent: var(--bright-gold);
+
+  /* Effects */
+  --shadow-color: rgba(182, 47, 52, 0.25);
+  --border: var(--color-wine-plum-600);
 }
 
+/* ========================================
+   BASE STYLES
+   ======================================== */
+
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--background);
   transition: background 0.3s ease, color 0.3s ease;
 }
 
-/* Animations personnalisées */
+a,
+button {
+  cursor: pointer;
+}
+
+/* ========================================
+   ANIMATIONS
+   ======================================== */
+
 @keyframes blob {
-  0% {
-    transform: translate(0px, 0px) scale(1);
-  }
-  33% {
-    transform: translate(30px, -50px) scale(1.1);
-  }
-  66% {
-    transform: translate(-20px, 20px) scale(0.9);
-  }
-  100% {
-    transform: translate(0px, 0px) scale(1);
-  }
+  0% { transform: translate(0px, 0px) scale(1); }
+  33% { transform: translate(30px, -50px) scale(1.1); }
+  66% { transform: translate(-20px, 20px) scale(0.9); }
+  100% { transform: translate(0px, 0px) scale(1); }
 }
 
-.animate-blob {
-  animation: blob 7s infinite;
-}
-
-.animation-delay-2000 {
-  animation-delay: 2s;
-}
-
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Effet néon orangé minimaliste */
-.neon-text {
-  text-shadow: 
-    0 0 10px rgba(216, 121, 67, 0.3),
-    0 0 20px rgba(216, 121, 67, 0.2),
-    0 0 30px rgba(216, 121, 67, 0.1);
-}
-
-.neon-text-strong {
-  text-shadow: 
-    0 0 5px rgba(216, 121, 67, 0.5),
-    0 0 10px rgba(216, 121, 67, 0.4),
-    0 0 20px rgba(216, 121, 67, 0.3),
-    0 0 40px rgba(216, 121, 67, 0.2);
-  color: #d87943;
-}
-
-/* Effets hover pour la navigation */
-.nav-link {
-  position: relative;
-  transition: all 0.3s ease;
-}
-
-.nav-link::after {
-  content: '';
-  position: absolute;
-  bottom: -4px;
-  left: 0;
-  width: 0;
-  height: 2px;
-  background: linear-gradient(90deg, #d87943, #ff9d6f);
-  transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-  width: 100%;
-}
-
-.nav-link:hover {
-  color: #d87943;
-  transform: translateY(-2px);
-}
-
-.nav-button {
-  position: relative;
-  transition: all 0.3s ease;
-  overflow: hidden;
-}
-
-.nav-button::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -100%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(216, 121, 67, 0.1), transparent);
-  transition: left 0.5s ease;
-}
-
-.nav-button:hover::before {
-  left: 100%;
-}
-
-.nav-button:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(216, 121, 67, 0.2);
-}
-
-/* Effets hover pour les icônes sociales */
-.social-icon {
-  transition: all 0.3s ease;
-}
-
-.social-icon:hover {
-  transform: translateY(-3px) scale(1.1);
-  filter: drop-shadow(0 4px 8px rgba(216, 121, 67, 0.3));
-}
-
-/* Effets hover pour les liens du footer */
-.footer-link {
-  position: relative;
-  display: inline-block;
-  transition: all 0.3s ease;
-}
-
-.footer-link::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 0;
-  height: 1px;
-  background: linear-gradient(90deg, #d87943, #ff9d6f);
-  transition: width 0.3s ease;
-}
-
-.footer-link:hover::before {
-  width: 100%;
-}
-
-.footer-link:hover {
-  color: #d87943 !important;
-  opacity: 1 !important;
-  transform: translateX(4px);
-}
-
-/* Effet d'élévation pour les cards */
-.card-hover {
-  transition: all 0.3s ease;
-}
-
-.card-hover:hover {
-  transform: translateY(-8px);
-  box-shadow: 0 20px 40px rgba(216, 121, 67, 0.15);
-}
-
-/* Nouvelles animations pour la page d'accueil */
 @keyframes float {
-  0%, 100% {
-    transform: translateY(0px) rotate(0deg);
-  }
-  50% {
-    transform: translateY(-20px) rotate(5deg);
-  }
-}
-
-@keyframes glow {
-  0%, 100% {
-    filter: drop-shadow(0 0 10px rgba(216, 121, 67, 0.5));
-  }
-  50% {
-    filter: drop-shadow(0 0 20px rgba(216, 121, 67, 0.8));
-  }
-}
-
-@keyframes spin-slow {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
-.animate-spin-slow {
-  animation: spin-slow 8s linear infinite;
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50% { transform: translateY(-20px) rotate(5deg); }
 }
 
 @keyframes pulse-glow {
-  0%, 100% {
-    box-shadow: 0 0 20px rgba(216, 121, 67, 0.3);
-  }
-  50% {
-    box-shadow: 0 0 40px rgba(216, 121, 67, 0.6);
-  }
-}
-
-@keyframes slide-in-left {
-  from {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
-
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(50px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
+  0%, 100% { box-shadow: 0 0 20px var(--shadow-color); }
+  50% { box-shadow: 0 0 40px var(--shadow-color); }
 }
 
 @keyframes fade-in-up {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+  from { opacity: 0; transform: translateY(30px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes particle-float {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  25% { 
+    transform: translate(10px, -15px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate(-5px, -30px) scale(0.9);
+    opacity: 0.7;
+  }
+  75% { 
+    transform: translate(-15px, -15px) scale(1.05);
+    opacity: 0.4;
   }
 }
 
-/* Effet de particules scintillantes */
-@keyframes sparkle {
-  0%, 100% {
-    opacity: 0;
-    transform: scale(0);
+/* ========================================
+   REUSABLE COMPONENTS - Typography
+   ======================================== */
+
+/* Main Page Title */
+.meru-title-main {
+  font-size: clamp(2.5rem, 5vw, 4.5rem);
+  font-weight: 900;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+}
+
+/* Section Title */
+.meru-title-section {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+/* Card/Component Title */
+.meru-title-component {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  line-height: 1.3;
+}
+
+/* Small Title */
+.meru-title-small {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.5rem;
+}
+
+/* Subtitle */
+.meru-subtitle {
+  font-size: clamp(1rem, 2vw, 1.25rem);
+  font-weight: 500;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+/* Description Text */
+.meru-description {
+  font-size: 1rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+}
+
+/* Label Text */
+.meru-label {
+  font-size: 0.8125rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Buttons
+   ======================================== */
+
+.meru-btn {
+  font-weight: 700;
+  padding: 0.875rem 2.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-decoration: none;
+}
+
+.meru-btn-primary {
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.meru-btn-primary:hover {
+  background: var(--primary-hover);
+  color: var(--text-action);
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.meru-btn-secondary {
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  background: transparent;
+}
+
+.meru-btn-secondary:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--accent);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Cards
+   ======================================== */
+
+.meru-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1rem;
+  backdrop-filter: blur(12px);
+  transition: all 0.3s ease;
+}
+
+.meru-card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px var(--shadow-color);
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Containers
+   ======================================== */
+
+.meru-container-primary {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  backdrop-filter: blur(16px);
+  transition: all 0.3s ease;
+}
+
+.meru-container-primary:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 30px var(--shadow-color);
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Background & Particles
+   ======================================== */
+
+.meru-page-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Particules décoratives avec animations fluides */
+.meru-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: particle-float 8s ease-in-out infinite;
+  pointer-events: none;
+  filter: blur(1px);
+  z-index: 1;
+}
+
+/* Variantes de couleurs douces (rouge/wine) */
+.meru-particle:nth-child(1) {
+  background: radial-gradient(circle, rgba(155, 44, 81, 0.6), rgba(155, 44, 81, 0));
+  width: 12px;
+  height: 12px;
+}
+
+.meru-particle:nth-child(2) {
+  background: radial-gradient(circle, rgba(190, 73, 104, 0.5), rgba(190, 73, 104, 0));
+  width: 10px;
+  height: 10px;
+  animation-duration: 10s;
+}
+
+.meru-particle:nth-child(3) {
+  background: radial-gradient(circle, rgba(219, 113, 137, 0.6), rgba(219, 113, 137, 0));
+  width: 14px;
+  height: 14px;
+  animation-duration: 7s;
+}
+
+.meru-particle:nth-child(4) {
+  background: radial-gradient(circle, rgba(243, 168, 186, 0.4), rgba(243, 168, 186, 0));
+  width: 9px;
+  height: 9px;
+  animation-duration: 9s;
+}
+
+.meru-particle:nth-child(5) {
+  background: radial-gradient(circle, rgba(202, 86, 115, 0.5), rgba(202, 86, 115, 0));
+  width: 11px;
+  height: 11px;
+  animation-duration: 11s;
+}
+
+/* Particules supplémentaires avec des tons plus clairs */
+.meru-particle:nth-child(6) {
+  background: radial-gradient(circle, rgba(252, 207, 217, 0.3), rgba(252, 207, 217, 0));
+  width: 8px;
+  height: 8px;
+  animation-duration: 12s;
+}
+
+.meru-particle:nth-child(7) {
+  background: radial-gradient(circle, rgba(172, 58, 92, 0.6), rgba(172, 58, 92, 0));
+  width: 13px;
+  height: 13px;
+  animation-duration: 8.5s;
+}
+
+/* ========================================
+   REUSABLE COMPONENTS - Badges & Status
+   ======================================== */
+
+.meru-badge {
+  display: inline-block;
+  padding: 0.5rem 1.25rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border: 1px solid var(--accent);
+  border-radius: 9999px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  color: white;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   NAVIGATION - Menu & Header
+   ======================================== */
+
+.meru-nav-backdrop {
+  background: var(--menu-bg);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  box-shadow: 0 2px 8px var(--shadow-color);
+}
+
+.meru-nav-logo {
+  transition: transform 0.3s ease;
+}
+
+.meru-nav-logo:hover {
+  transform: scale(1.05);
+}
+
+.meru-nav-title {
+  font-size: 1.25rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  background: linear-gradient(135deg, var(--accent) 0%, var(--primary) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  filter: drop-shadow(0 0 10px rgba(255, 227, 23, 0.4));
+  transition: all 0.3s ease;
+}
+
+.meru-nav-subtitle {
+  color: var(--text-muted);
+  font-size: 0.75rem;
+}
+
+.meru-nav-link {
+  color: var(--text-secondary);
+  font-weight: 500;
+  transition: all 0.3s ease;
+  position: relative;
+  padding: 0.5rem 0;
+}
+
+.meru-nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: var(--primary);
+  transition: width 0.3s ease;
+}
+
+.meru-nav-link:hover,
+.meru-nav-link-active {
+  color: var(--primary);
+}
+
+.meru-nav-link:hover::after,
+.meru-nav-link-active::after {
+  width: 100%;
+}
+
+.meru-nav-btn-outline {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  border: 2px solid var(--primary);
+  color: var(--primary);
+  background: transparent;
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.meru-nav-btn-outline:hover {
+  background: var(--primary);
+  color: white;
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+.meru-nav-btn-solid {
+  display: inline-block;
+  padding: 0.5rem 1.5rem;
+  background: var(--primary);
+  color: white;
+  border: 2px solid var(--primary);
+  border-radius: 0.75rem;
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  text-decoration: none;
+}
+
+.meru-nav-btn-solid:hover {
+  background: var(--primary-hover);
+  color: var(--text-action);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+/* ========================================
+   NAVIGATION - Theme Toggle
+   ======================================== */
+
+.meru-theme-toggle {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.meru-theme-toggle:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--accent);
+  transform: rotate(180deg) scale(1.05);
+  box-shadow: 0 0 20px var(--shadow-color);
+}
+
+.meru-theme-toggle-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+  transition: all 0.4s ease;
+}
+
+/* ========================================
+   FOOTER
+   ======================================== */
+
+.meru-footer {
+  background: var(--menu-bg);
+  backdrop-filter: blur(16px);
+  border-top: 1px solid var(--border);
+  box-shadow: 0 -2px 8px var(--shadow-color);
+  position: relative;
+  z-index: 50;
+}
+
+.meru-footer-container {
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 4rem 2rem 2rem;
+}
+
+.meru-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 3rem;
+  margin-bottom: 2rem;
+}
+
+.meru-footer-section-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.meru-footer-description {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 1.5rem;
+}
+
+.meru-footer-links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.meru-footer-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  transition: color 0.3s ease;
+  position: relative;
+  display: inline-block;
+}
+
+.meru-footer-link:hover {
+  color: var(--primary);
+}
+
+.meru-footer-socials {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.meru-footer-social-icon {
+  width: 2.5rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 0.5rem;
+  color: var(--text-secondary);
+  transition: all 0.3s ease;
+}
+
+.meru-footer-social-icon:hover {
+  background: var(--primary);
+  border-color: var(--accent);
+  color: white;
+  transform: translateY(-3px);
+}
+
+.meru-footer-bottom {
+  border-top: 1px solid var(--border);
+  padding-top: 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.meru-footer-copyright,
+.meru-footer-warning {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+}
+
+/* ========================================
+   HOME PAGE - Choice/CTA Section
+   ======================================== */
+
+.meru-cta-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.meru-cta-features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.5rem;
+  max-width: 72rem;
+  margin: 0 auto;
+}
+
+/* ========================================
+   HOME PAGE - Games Section (Tabs)
+   ======================================== */
+
+.meru-games-tabs-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+  padding: 1rem;
+  background: var(--card-bg);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+}
+
+.meru-games-tab {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.75rem;
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 0.75rem;
+  color: var(--text-secondary);
+  font-weight: 600;
+  font-size: 0.9375rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  cursor: pointer;
+}
+
+.meru-games-tab:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  color: var(--text-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px var(--shadow-color);
+}
+
+.meru-games-tab-active {
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  border-color: var(--accent);
+  color: white;
+  box-shadow: 0 8px 25px var(--shadow-color);
+  transform: translateY(-2px);
+}
+
+.meru-games-tab-icon {
+  font-size: 1.5rem;
+  transition: transform 0.3s ease;
+}
+
+.meru-games-tab:hover .meru-games-tab-icon {
+  transform: scale(1.15) rotate(-5deg);
+}
+
+.meru-games-info-icon {
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 12px var(--shadow-color));
+  display: inline-block;
+}
+
+.meru-games-detail-card {
+  background: var(--foreground);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.meru-games-detail-card:hover {
+  border-color: var(--primary);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px var(--shadow-color);
+}
+
+/* ========================================
+   HOME PAGE - Resources Sidebar
+   ======================================== */
+
+.meru-resources-sidebar {
+  background: var(--card-bg);
+  backdrop-filter: blur(16px);
+  border: 2px solid var(--border);
+  border-radius: 1.5rem;
+  padding: 1.5rem;
+  height: fit-content;
+  position: sticky;
+  top: 2rem;
+}
+
+.meru-resources-header {
+  margin-bottom: 2rem;
+  text-align: center;
+  padding-bottom: 1.5rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.meru-resources-title {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.meru-resources-subtitle {
+  font-size: 0.9375rem;
+  color: var(--text-muted);
+  font-weight: 500;
+}
+
+.meru-resources-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-bottom: 1rem;
+}
+
+.meru-resource-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 1.25rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  display: block;
+  text-decoration: none;
+}
+
+.meru-resource-card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--primary);
+  transform: translateX(4px);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.meru-resource-content {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.meru-resource-icon {
+  width: 3rem;
+  height: 3rem;
+  min-width: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.75rem;
+  font-size: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-icon {
+  transform: scale(1.1) rotate(-5deg);
+}
+
+.meru-resource-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.meru-resource-name {
+  font-size: 1.125rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+  transition: color 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-name {
+  color: var(--primary);
+}
+
+.meru-resource-description {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  line-height: 1.4;
+}
+
+.meru-resource-external {
+  width: 1.25rem;
+  height: 1.25rem;
+  color: var(--text-muted);
+  transition: all 0.3s ease;
+}
+
+.meru-resource-card:hover .meru-resource-external {
+  color: var(--accent);
+  transform: translate(2px, -2px);
+}
+
+/* ========================================
+   HOME PAGE - Streams Section
+   ======================================== */
+
+.meru-stream-header {
+  margin-bottom: 2rem;
+}
+
+.meru-stream-title-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.meru-stream-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: linear-gradient(135deg, var(--primary) 0%, var(--primary-hover) 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 9999px;
+  border: 1px solid var(--accent);
+}
+
+.meru-stream-live-dot {
+  width: 0.5rem;
+  height: 0.5rem;
+  background: white;
+  border-radius: 50%;
+  animation: pulse-glow 2s infinite;
+}
+
+.meru-stream-live-text {
+  color: white;
+  font-weight: 700;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+/* ========================================
+   LEGAL PAGES - Content Styles
+   ======================================== */
+
+.meru-legal-section {
+  margin-bottom: 3rem;
+}
+
+.meru-legal-section-title {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid var(--border);
+}
+
+.meru-legal-text {
+  font-size: 1rem;
+  color: var(--text-primary);
+  line-height: 1.8;
+  margin-bottom: 1rem;
+}
+
+.meru-legal-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 1.5rem 0;
+}
+
+.meru-legal-list li {
+  padding-left: 1.5rem;
+  margin-bottom: 0.75rem;
+  position: relative;
+  color: var(--text-primary);
+  line-height: 1.7;
+}
+
+.meru-legal-list li::before {
+  content: '→';
+  position: absolute;
+  left: 0;
+  color: var(--primary);
+  font-weight: bold;
+}
+
+.meru-legal-link {
+  color: var(--accent);
+  text-decoration: underline;
+  transition: color 0.3s ease;
+}
+
+.meru-legal-link:hover {
+  color: var(--primary);
+}
+
+.meru-legal-update {
+  font-size: 0.875rem;
+  color: var(--text-muted);
+  font-style: italic;
+  margin-top: 1rem;
+}
+
+.meru-legal-highlight {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-left: 4px solid var(--primary);
+  border-radius: 0.5rem;
+  margin: 1.5rem 0;
+}
+
+.meru-legal-warning {
+  background: var(--card-bg);
+  border: 2px solid var(--primary);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+}
+
+.meru-legal-tool {
+  background: var(--card-bg);
+  border: 1px solid var(--border);
+  border-radius: 0.75rem;
+  padding: 1.5rem;
+  margin-bottom: 1rem;
+  transition: all 0.3s ease;
+}
+
+.meru-legal-tool:hover {
+  border-color: var(--primary);
+  transform: translateX(4px);
+}
+
+.meru-legal-tool-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 0.75rem;
+}
+
+.meru-legal-help-card {
+  background: var(--card-bg);
+  border: 2px solid var(--border);
+  border-radius: 1rem;
+  padding: 2rem;
+  margin-bottom: 1.5rem;
+  transition: all 0.3s ease;
+}
+
+.meru-legal-help-card:hover {
+  border-color: var(--primary);
+  box-shadow: 0 8px 25px var(--shadow-color);
+}
+
+.meru-legal-help-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+.meru-legal-final-message {
+  background: linear-gradient(135deg, var(--card-bg) 0%, var(--card-bg-hover) 100%);
+  border: 2px solid var(--accent);
+  border-radius: 1rem;
+  padding: 2rem;
+  text-align: center;
+}
+
+.meru-legal-final-title {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--accent);
+  margin-bottom: 1rem;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN
+   ======================================== */
+
+@media (max-width: 1024px) {
+  .meru-footer-grid {
+    grid-template-columns: 1fr;
+    gap: 2rem;
   }
-  50% {
-    opacity: 1;
-    transform: scale(1);
+
+  .meru-resources-sidebar {
+    position: static;
   }
 }
 
-/* Gradient animé */
-@keyframes gradient-shift {
-  0% {
-    background-position: 0% 50%;
+@media (max-width: 768px) {
+  .meru-title-section {
+    font-size: 2rem;
   }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
 
-.animate-gradient {
-  background-size: 200% 200%;
-  animation: gradient-shift 3s ease infinite;
+  .meru-subtitle {
+    font-size: 1rem;
+  }
+
+  .meru-btn {
+    padding: 0.75rem 1.5rem;
+  }
+
+  .meru-card {
+    padding: 1.5rem;
+  }
+
+  .meru-container-primary {
+    padding: 1.5rem;
+  }
+
+  .meru-cta-buttons {
+    flex-direction: column;
+  }
+
+  .meru-footer-container {
+    padding: 3rem 1.5rem 1.5rem;
+  }
 }

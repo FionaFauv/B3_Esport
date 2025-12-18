@@ -14,7 +14,7 @@ export default function ThemeToggle() {
   if (!mounted) {
     return (
       <button
-        className="p-2 rounded-lg border border-gray-300 w-10 h-10"
+        className="meru-theme-toggle"
         aria-label="Loading theme"
       />
     );
@@ -23,7 +23,7 @@ export default function ThemeToggle() {
   return (
     <button
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
-      className="p-2 rounded-lg border border-[var(--border)] hover:border-[#d87943] text-[var(--foreground)] hover:text-[#d87943] transition-colors"
+      className="meru-theme-toggle"
       aria-label="Toggle dark mode"
     >
       {theme === 'dark' ? (
@@ -34,7 +34,7 @@ export default function ThemeToggle() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5"
+          className="meru-theme-toggle-icon"
         >
           <path
             strokeLinecap="round"
@@ -50,7 +50,7 @@ export default function ThemeToggle() {
           viewBox="0 0 24 24"
           strokeWidth={1.5}
           stroke="currentColor"
-          className="w-5 h-5"
+          className="meru-theme-toggle-icon"
         >
           <path
             strokeLinecap="round"
