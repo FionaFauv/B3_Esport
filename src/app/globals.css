@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 /* ========================================
    CSS VARIABLES - Meru Colors Palette
@@ -17,7 +18,7 @@
   --color-wine-plum-800: rgb(67 35 37);
   --color-wine-plum-900: rgb(33 18 19);
   --color-wine-plum-950: rgb(23 12 13);
-  
+
   /* Couleurs d'action (constantes) */
   --bright-gold: #FFE317;
   --intense-cherry: #B62F34;
@@ -34,13 +35,13 @@
   --foreground: var(--color-wine-plum-100);
   --foreground-secondary: var(--color-wine-plum-200);
   --foreground-third: var(--color-wine-plum-300);
-  
+
   /* Card & Container */
   --border-line: var(--color-wine-plum-300);
   --card-bg: rgba(255, 255, 255, 0.8);
   --card-bg-hover: rgba(255, 255, 255, 0.95);
   --menu-bg: rgba(246, 238, 239, 0.95);
-  
+
   /* Text */
   --foreground-text: var(--color-wine-plum-900);
   --text-primary: var(--color-wine-plum-900);
@@ -52,7 +53,7 @@
   --primary: var(--intense-cherry);
   --primary-hover: var(--background);
   --accent: var(--intense-cherry);
-  
+
   /* Effects */
   --shadow-color: rgba(91, 47, 50, 0.15);
   --border: var(--color-wine-plum-300);
@@ -64,25 +65,25 @@
   --foreground: var(--color-wine-plum-700);
   --foreground-secondary: var(--color-wine-plum-600);
   --foreground-third: var(--color-wine-plum-500);
-  
+
   /* Card & Container */
   --border-line: var(--color-wine-plum-950);
   --card-bg: var(--color-wine-plum-700);
   --card-bg-hover: var(--color-wine-plum-600);
   --menu-bg: rgba(67, 35, 37, 0.95);
-  
+
   /* Text */
   --foreground-text: var(--color-wine-plum-50);
   --text-primary: var(--color-wine-plum-50);
   --text-secondary: var(--color-wine-plum-100);
   --text-muted: var(--color-wine-plum-300);
   --text-action : white;
-  
+
   /* Actions */
   --primary: var(--intense-cherry);
   --primary-hover: var(--intense-cherry);
   --accent: var(--bright-gold);
-  
+
   /* Effects */
   --shadow-color: rgba(182, 47, 52, 0.25);
   --border: var(--color-wine-plum-600);
@@ -94,7 +95,6 @@
 
 body {
   background-color: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
   transition: background 0.3s ease, color 0.3s ease;
 }
 
