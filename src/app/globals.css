@@ -129,6 +129,25 @@ button {
   to { opacity: 1; transform: translateY(0); }
 }
 
+@keyframes particle-float {
+  0%, 100% { 
+    transform: translate(0, 0) scale(1);
+    opacity: 0.3;
+  }
+  25% { 
+    transform: translate(10px, -15px) scale(1.1);
+    opacity: 0.5;
+  }
+  50% { 
+    transform: translate(-5px, -30px) scale(0.9);
+    opacity: 0.7;
+  }
+  75% { 
+    transform: translate(-15px, -15px) scale(1.05);
+    opacity: 0.4;
+  }
+}
+
 /* ========================================
    REUSABLE COMPONENTS - Typography
    ======================================== */
@@ -282,6 +301,79 @@ button {
   border-color: var(--primary);
   box-shadow: 0 8px 30px var(--shadow-color);
 }
+
+/* ========================================
+   REUSABLE COMPONENTS - Background & Particles
+   ======================================== */
+
+.meru-page-background {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+}
+
+/* Particules décoratives avec animations fluides */
+.meru-particle {
+  position: fixed;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: particle-float 8s ease-in-out infinite;
+  pointer-events: none;
+  filter: blur(1px);
+  z-index: 1;
+}
+
+/* Variantes de couleurs douces (rouge/wine) */
+.meru-particle:nth-child(1) {
+  background: radial-gradient(circle, rgba(155, 44, 81, 0.6), rgba(155, 44, 81, 0));
+  width: 12px;
+  height: 12px;
+}
+
+.meru-particle:nth-child(2) {
+  background: radial-gradient(circle, rgba(190, 73, 104, 0.5), rgba(190, 73, 104, 0));
+  width: 10px;
+  height: 10px;
+  animation-duration: 10s;
+}
+
+.meru-particle:nth-child(3) {
+  background: radial-gradient(circle, rgba(219, 113, 137, 0.6), rgba(219, 113, 137, 0));
+  width: 14px;
+  height: 14px;
+  animation-duration: 7s;
+}
+
+.meru-particle:nth-child(4) {
+  background: radial-gradient(circle, rgba(243, 168, 186, 0.4), rgba(243, 168, 186, 0));
+  width: 9px;
+  height: 9px;
+  animation-duration: 9s;
+}
+
+.meru-particle:nth-child(5) {
+  background: radial-gradient(circle, rgba(202, 86, 115, 0.5), rgba(202, 86, 115, 0));
+  width: 11px;
+  height: 11px;
+  animation-duration: 11s;
+}
+
+/* Particules supplémentaires avec des tons plus clairs */
+.meru-particle:nth-child(6) {
+  background: radial-gradient(circle, rgba(252, 207, 217, 0.3), rgba(252, 207, 217, 0));
+  width: 8px;
+  height: 8px;
+  animation-duration: 12s;
+}
+
+.meru-particle:nth-child(7) {
+  background: radial-gradient(circle, rgba(172, 58, 92, 0.6), rgba(172, 58, 92, 0));
+  width: 13px;
+  height: 13px;
+  animation-duration: 8.5s;
+}
+
 /* ========================================
    REUSABLE COMPONENTS - Badges & Status
    ======================================== */

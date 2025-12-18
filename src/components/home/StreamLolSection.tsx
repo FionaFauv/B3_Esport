@@ -23,7 +23,7 @@ export default function StreamLolSection() {
           </p>
         </div>
 
-        <div className="meru-stream-container">
+        <div className="meru-card meru-stream-container">
           <div className="flex flex-col lg:flex-row gap-8">
             
             {/* Section principale - Streams League of Legends */}
