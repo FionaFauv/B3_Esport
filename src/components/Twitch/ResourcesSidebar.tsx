@@ -1,36 +1,9 @@
 'use client';
 
+import { resources } from '@/lib/constants/resources';
+import React from 'react';
+
 export default function ResourcesSidebar() {
-  const resources = [
-    {
-      name: 'Mobafire',
-      url: 'https://www.mobafire.com/',
-      description: 'Guides et builds LoL',
-      icon: '📖',
-      color: '#FF4500',
-    },
-    {
-      name: 'DPM.LOL',
-      url: 'https://dpm.lol/',
-      description: 'Statistiques détaillées',
-      icon: '📊',
-      color: '#3B82F6',
-    },
-    {
-      name: 'U.GG',
-      url: 'https://u.gg/',
-      description: 'Tier list & Stats',
-      icon: '🏆',
-      color: '#8B5CF6',
-    },
-    {
-      name: 'OP.GG',
-      url: 'https://op.gg/',
-      description: 'Analyses de matchs',
-      icon: '🎮',
-      color: '#1EAEDB',
-    },
-  ];
 
   return (
     <div className="meru-resources-sidebar">
