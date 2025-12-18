@@ -1,33 +1,27 @@
-import React from 'react'
+'use client' 
+
+import React, { useEffect, useState } from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
-
+import { useTheme } from 'next-themes'
+import { Particles } from '../ui/particles'
+import { faqs } from '@/lib/constants/faqs'
 /**
  * Section FAQ de la page Contact
  * Affiche une liste de questions fréquentes avec le style Meru
  */
 export default function FAQSection() {
-  const faqs = [
-    {
-      question: 'Comment créer un compte ?',
-      answer: 'Cliquez sur le bouton "Inscription" en haut à droite, remplissez le formulaire et validez votre email.',
-    },
-    {
-      question: 'Comment rejoindre un tournoi ?',
-      answer: 'Consultez la liste des tournois disponibles et cliquez sur "S\'inscrire" sur celui de votre choix.',
-    },
-    {
-      question: 'Les tournois sont-ils gratuits ?',
-      answer: 'Certains tournois sont gratuits, d\'autres peuvent nécessiter des frais d\'inscription. Vérifiez les détails.',
-    },
-    {
-      question: 'Comment devenir partenaire ?',
-      answer: 'Contactez-nous via le formulaire en sélectionnant "Partenariat" comme sujet de votre message.',
-    },
-  ]
+
+
+  const { theme } = useTheme()
+  const [color, setColor] = useState("#401717ff")
+
+  useEffect(() => {
+    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
+  }, [theme])
 
   return (
-    <Section paddingY="large">
+    <Section paddingY="large" className='relative overflow-hidden'>
       <Container>
         <h2 className="meru-title-section mb-12">
           Questions fréquentes
@@ -50,6 +44,13 @@ export default function FAQSection() {
           ))}
         </div>
       </Container>
+      <Particles
+        className="absolute inset-0"
+        quantity={100}
+        ease={80}
+        color={color}
+        refresh
+      />
     </Section>
   )
 }

@@ -1,10 +1,12 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useAuthStore } from '@/stores/AuthStore';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { Container } from '../ui/container';   
+import { useTheme } from 'next-themes';
+import { Particles } from '../ui/particles';
 
 export default function FormSection() {
   const [email, setEmail] = useState('');
@@ -36,6 +38,14 @@ export default function FormSection() {
     }
   };
 
+  const { theme } = useTheme()
+  const [color, setColor] = useState("#401717ff")
+
+  useEffect(() => {
+    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
+  }, [theme])
+  
+  
 
   return (
     <Container className="min-h-screen flex items-center justify-center py-12 px-4">
@@ -173,6 +183,13 @@ export default function FormSection() {
           </p>
         </div>
       </div>
+      <Particles
+        className="absolute inset-0"
+        quantity={100}
+        ease={80}
+        color={color}
+        refresh
+      />
     </Container>
   );
 }
