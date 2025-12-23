@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import{ ThemeProvider } from 'next-themes';
 import { Geist, Geist_Mono } from "next/font/google";
 import { AuthInitializer } from "@/components/AuthInitializer";
+import { ParticlesBackground } from "@/components/ui/ParticlesBackground";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -29,6 +30,7 @@ export default function RootLayout({
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <ThemeProvider attribute="data-theme" defaultTheme="light" enableSystem disableTransitionOnChange>
           <AuthInitializer />
+          <ParticlesBackground />
           {children}
         </ThemeProvider>
       </body>

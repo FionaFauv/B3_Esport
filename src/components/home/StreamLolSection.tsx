@@ -1,11 +1,7 @@
-'use client'
 
-import React, { useEffect, useState } from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import TwitchLiveStreams from '@/components/Twitch/TwitchLiveStreams'
-import { Particles } from '../ui/particles'
-import { useTheme } from 'next-themes'
 
 /**
  * Section League of Legends Streams
@@ -13,22 +9,8 @@ import { useTheme } from 'next-themes'
  */
 export default function StreamLolSection() {
 
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
-  
   return (
     <Section paddingY='large' className='relative overflow-hidden'>
-        <Particles
-        className="absolute inset-0 z-50"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
       <Container>
         {/* Titre de la section */}
         <div className="text-center mb-8">
@@ -70,10 +52,7 @@ export default function StreamLolSection() {
             </div>
           </div>
         </div>
-
       </Container>
-
-
     </Section>
     
   )

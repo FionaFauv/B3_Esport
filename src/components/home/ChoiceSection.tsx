@@ -5,9 +5,6 @@ import { ROUTES } from '@/lib/constants/routes'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import { SlideInFromBottom, StaggerContainer, StaggerItem } from '@/components/animations'
-import { Particles } from '../ui/particles'
-import { useEffect, useState } from 'react'
-import { useTheme } from 'next-themes'
 
 /**
  * Section Call-to-Action avec thème Meru
@@ -15,13 +12,6 @@ import { useTheme } from 'next-themes'
  */
 export default function ChoiceSection() {
 
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
-  
   return (
     <Section paddingY="large" className='relative overflow-hidden'>
       <Container className="text-center relative z-10">
@@ -100,14 +90,6 @@ export default function ChoiceSection() {
           </div>
         </StaggerContainer>
       </Container>
-      <Particles
-        className="absolute inset-0"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
-              
     </Section>
   )
 }
