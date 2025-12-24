@@ -1,21 +1,12 @@
 'use client' 
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import { SlideInFromBottom, StaggerContainer } from '@/components/animations'
-import { Particles } from '../ui/particles'
-import { useTheme } from 'next-themes'
 
 export default function ParisSection() {
 
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
-  
   return (
     <SlideInFromBottom>
     <Section paddingY="large">
@@ -102,13 +93,6 @@ export default function ParisSection() {
                 </div>
               </div>
             </Container>
-      <Particles
-        className="absolute inset-0"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
           </Section>
           </SlideInFromBottom>
      )
