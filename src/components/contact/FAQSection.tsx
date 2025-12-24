@@ -1,24 +1,14 @@
 'use client' 
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
-import { useTheme } from 'next-themes'
-import { Particles } from '../ui/particles'
 import { faqs } from '@/lib/constants/faqs'
 /**
  * Section FAQ de la page Contact
  * Affiche une liste de questions fréquentes avec le style Meru
  */
 export default function FAQSection() {
-
-
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
 
   return (
     <Section paddingY="large" className='relative overflow-hidden'>
@@ -44,13 +34,6 @@ export default function FAQSection() {
           ))}
         </div>
       </Container>
-      <Particles
-        className="absolute inset-0"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
     </Section>
   )
 }

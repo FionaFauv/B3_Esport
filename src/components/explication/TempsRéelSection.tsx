@@ -1,21 +1,12 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import { SlideInFromBottom, StaggerContainer } from '@/components/animations'
-import { useTheme } from 'next-themes'
-import { Particles } from '../ui/particles'
 
 export default function TempsReelSection() {
 
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
-  
     return (
       <SlideInFromBottom>
         <Section paddingY="large">
@@ -111,13 +102,6 @@ export default function TempsReelSection() {
             
                 </Container>
                 </StaggerContainer>
-      <Particles
-        className="absolute inset-0"
-        quantity={100}
-        ease={80}
-        color={color}
-        refresh
-      />
               </Section>
               </SlideInFromBottom>
     )

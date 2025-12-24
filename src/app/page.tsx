@@ -1,4 +1,3 @@
-'use client'
 import  HeroSection from '@/components/home/HeroSection'
 import StreamLolSection from '@/components/home/StreamLolSection'
 import ChoiceSection from '@/components/home/ChoiceSection'

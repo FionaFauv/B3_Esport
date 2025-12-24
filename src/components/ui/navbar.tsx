@@ -27,7 +27,7 @@ const Navbar = () => {
             transition={{ duration: 0.3 }}
           >
           <Link href={ROUTES.HOME} className="flex items-center gap-3 group">
-            <div className="w-10 h-10 rounded-lg flex items-center justify-center meru-nav-logo">
+            <div className="flex items-center pb-2 meru-nav-logo">
               <Image 
                 src="/images/MeruSleep.png" 
                 alt="Logo Esport" 
@@ -36,6 +36,7 @@ const Navbar = () => {
                 className="mb-2 ml-2"
                 priority
               />
+              <h3 className="text-xl meru-nav-title">EZ</h3>
               </div>
           </Link>
           </motion.div>

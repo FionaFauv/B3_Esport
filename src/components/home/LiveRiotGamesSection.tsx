@@ -1,25 +1,17 @@
 'use client'
 
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Section } from '@/components/ui/section'
 import { Container } from '@/components/ui/container'
 import { StaggerContainer, SlideInFromBottom } from '@/components/animations'
 import { motion, AnimatePresence } from 'framer-motion'
 import ResourcesSidebar from '../Twitch/ResourcesSidebar'
 import { GAMES, contentVariants, gridVariants, gridItemVariants } from '@/lib/constants/game'
-import { Particles } from '../ui/particles'
-import { useTheme } from 'next-themes'
+
 
 export default function LiveRiotGamesSection() {
   const [activeTab, setActiveTab] = useState<string>('lol')
   const activeGame = GAMES.find(game => game.id === activeTab) || GAMES[0]
-
-  const { theme } = useTheme()
-  const [color, setColor] = useState("#401717ff")
-
-  useEffect(() => {
-    setColor(theme === "dark" ? "#e8c6c6ff" : "#531c1cff")
-  }, [theme])
 
   return (
     <SlideInFromBottom>
@@ -139,13 +131,6 @@ export default function LiveRiotGamesSection() {
         </StaggerContainer>
       </Container>
     </Section>
-       <Particles
-              className="absolute inset-0"
-                quantity={100}
-                ease={80}
-                color={color}
-                refresh
-              />
       </SlideInFromBottom>
 
   )
