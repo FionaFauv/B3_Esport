@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import NavbarAdmin from '@/components/NavbarAdmin';
+import NavbarAdmin from '@/components/admin/NavbarAdmin';
 
 export const metadata: Metadata = {
   title: 'Gestion Admin - Esport Paris Sportif',
@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 }
 
 
-export default function LoginLayout({
+export default function AdminLayout({
   children,
 }: {
   children: React.ReactNode
