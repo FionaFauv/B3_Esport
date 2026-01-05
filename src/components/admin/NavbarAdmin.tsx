@@ -67,8 +67,9 @@ export default function NavbarAdmin() {
             <div className="h-6 w-px" style={{ background: 'var(--border)' }}></div>
             
             {/* Bouton Déconnexion */}
-            <button 
+            <Link 
               onClick={logout}
+              href={ROUTES.HOME}
               className="meru-nav-link flex items-center gap-2"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -80,7 +81,7 @@ export default function NavbarAdmin() {
                 />
               </svg>
               Déconnexion
-            </button>
+            </Link>
           </nav>
 
           {/* Menu mobile */}

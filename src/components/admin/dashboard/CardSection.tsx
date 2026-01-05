@@ -1,137 +1,76 @@
 'use client';
 
-import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { ROUTES } from '@/lib/constants/routes';
 import { Users, Trophy, Gamepad2, Calendar, ChevronRight } from 'lucide-react';
+import { fetchAllTeams } from '@/app/api/pocketbase/team/view-team';
+import { fetchAllGames } from '@/app/api/pocketbase/games/view-game';
+import { fetchAllTournaments } from '@/app/api/pocketbase/tournaments/view-tournament';
+import { fetchAllMatches } from '@/app/api/pocketbase/matches/view-match';
+import type { Team, Game, Tournament, Match } from '@/app/api/types';
 
-interface Team {
-  id: string;
-  name: string;
-  abbreviation: string;
-  region: string;
-  yearFounded: number;
-  logo: string;
-  created: string;
-}
-
-interface Tournaments {
-  id: string;
-  name: string;
-  game_id: string;
-  prize_pool: number;
-  start_date: string;
-  end_date: string;
-  location: string;
-  created: string;
-}
-
-interface Match {
-  id: string;
-  tournament_id: string;
-  team1_id: string;
-  team2_id: string;
-  game_id: string;
-  match_date: string;
-  status: 'upcoming' | 'ongoing' | 'finished';
-  team1_score: number;
-  team2_score: number;
-  winner_id: string;
-  created_at: string;
-  updated: string;
-  expand?: {
-    team1_id?: Team;
-    team2_id?: Team;
-  };
-}
-
-interface Game {
-  id: string;
-  name: string;
-  category: string;
-  created: string;
-}
-
-// Fonction pour le tableau de bord (falcutatif à revoir si j'ai le temps.)
+// Fonction pour le tableau de bord (facultatif à revoir si j'ai le temps.)
 export default function CardSection() {
   const [teams, setTeams] = useState<Team[]>([]);
   const [loading, setLoading] = useState(true);
   const [games, setGames] = useState<Game[]>([]);
   const [gamesLoading, setGamesLoading] = useState(true);
-  const [tournaments, setTournaments] = useState<Tournaments[]>([]);
+  const [tournaments, setTournaments] = useState<Tournament[]>([]);
   const [tournamentsLoading, setTournamentsLoading] = useState(true);
   const [matches, setMatches] = useState<Match[]>([]);
   const [matchesLoading, setMatchesLoading] = useState(true);
 
+  useEffect(() => {
+    let isMounted = true;
 
-
-  const fetchTeams = async () => {
-    try {
-      setLoading(true);
-      const records = await pb.collection('Teams').getFullList<Team>({
-        sort: '-created',
-      });
-      setTeams(records);
-    } catch (error) {
-      console.error('Erreur lors du chargement des équipes:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-    const fetchGames = async () => {
+    const loadAllData = async () => {
       try {
-        setGamesLoading(true);
-        const records = await pb.collection('Games').getFullList<Game>({
-          sort: 'name',
-        });
-        setGames(records);
+        const [teamsData, gamesData, tournamentsData, matchesData] = await Promise.all([
+          fetchAllTeams().catch(err => {
+            console.error('Erreur lors du chargement des équipes:', err);
+            return [];
+          }),
+          fetchAllGames().catch(err => {
+            console.error('Erreur lors du chargement des jeux:', err);
+            return [];
+          }),
+          fetchAllTournaments().catch(err => {
+            console.error('Erreur lors du chargement des tournois:', err);
+            return [];
+          }),
+          fetchAllMatches().catch(err => {
+            console.error('Erreur lors du chargement des matchs:', err);
+            return [];
+          }),
+        ]);
+
+        if (isMounted) {
+          setTeams(teamsData);
+          setGames(gamesData);
+          setTournaments(tournamentsData);
+          setMatches(matchesData);
+          setLoading(false);
+          setGamesLoading(false);
+          setTournamentsLoading(false);
+          setMatchesLoading(false);
+        }
       } catch (error) {
-        console.error('Erreur lors du chargement des jeux:', error);
-      } finally {
-        setGamesLoading(false);
+        if (isMounted) {
+          console.error('Erreur lors du chargement des données:', error);
+          setLoading(false);
+          setGamesLoading(false);
+          setTournamentsLoading(false);
+          setMatchesLoading(false);
+        }
       }
     };
 
-      const fetchTournaments = async () => {
-        try {
-          setTournamentsLoading(true);
-          const records = await pb.collection('Tournaments').getFullList<Tournaments>({
-          });
-          
-          setTournaments(records);
-        } catch (error) {
-          console.error('Erreur lors du chargement des tournois:', error);
-        } finally {
-          setTournamentsLoading(false);
-        }
-      };
+    loadAllData();
 
-        const fetchMatches = async () => {
-          try {
-            setMatchesLoading(true);
-            console.log('Chargement des matchs...');
-            
-            const records = await pb.collection('Matches').getFullList<Match>({
-            sort: '-match_date',
-            expand: 'team1_id,team2_id',
-            });
-            
-            console.log('Matchs chargés:', records);
-            setMatches(records);
-          } catch (error) {
-            console.error('Erreur lors du chargement des matchs:', error);
-          } finally {
-            setMatchesLoading(false);
-          }
-        };
-
-  useEffect(() => {
-    fetchTeams();
-    fetchGames();
-    fetchTournaments();
-    fetchMatches();
+    return () => {
+      isMounted = false;
+    };
   }, []);
 
     return (
@@ -148,7 +87,7 @@ export default function CardSection() {
           <div className="meru-card">
             <div className="flex items-center justify-between mb-4">
               <div className="meru-icon-wrapper">
-                <Users className="meru-icon" />
+                <Users className="meru-icon"/>
               </div>
             </div>
             <div className="space-y-1">
@@ -163,7 +102,7 @@ export default function CardSection() {
           <div className="meru-card">
             <div className="flex items-center justify-between mb-4">
               <div className="meru-icon-wrapper">
-                <Trophy className="meru-icon" />
+                <Trophy/>
               </div>
             </div>
             <div className="space-y-1">
@@ -178,7 +117,7 @@ export default function CardSection() {
           <div className="meru-card">
             <div className="flex items-center justify-between mb-4">
               <div className="meru-icon-wrapper">
-                <Gamepad2 className="meru-icon" />
+                <Gamepad2/>
               </div>
             </div>
             <div className="space-y-1">
@@ -193,7 +132,7 @@ export default function CardSection() {
           <div className="meru-card">
             <div className="flex items-center justify-between mb-4">
               <div className="meru-icon-wrapper">
-                <Calendar className="meru-icon" />
+                <Calendar/>
               </div>
             </div>
             <div className="space-y-1">
@@ -220,7 +159,7 @@ export default function CardSection() {
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-4 flex-1">
                 <div className="meru-icon-wrapper flex-shrink-0">
-                  <Users className="meru-icon" />
+                  <Users/>
                 </div>
                 <div className="flex-1">
                   <h3 className="ml-2 meru-title-component mb-2">
@@ -243,7 +182,7 @@ export default function CardSection() {
             <div className="flex items-start justify-between">
               <div className="flex items-start space-x-4 flex-1">
                 <div className="meru-icon-wrapper flex-shrink-0">
-                  <Trophy className="meru-icon" />
+                  <Trophy/>
                 </div>
                 <div className="flex-1">
                   <h3 className="ml-2 meru-title-component mb-2">
