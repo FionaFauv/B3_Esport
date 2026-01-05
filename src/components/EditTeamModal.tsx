@@ -182,7 +182,6 @@ export default function EditTeamModal({ isOpen, onClose, onSuccess, team }: Edit
             >
               <option value="">Sélectionner une région</option>
               <option value="EU">Europe (EU)</option>
-              <option value="FR">France (FR)</option>
               <option value="NA">Amérique du Nord (NA)</option>
               <option value="KR">Corée (KR)</option>
               <option value="CN">Chine (CN)</option>

@@ -1,13 +1,40 @@
 'use client';
 
 import { useState } from 'react';
-import { pb } from '@/lib/pocketbase';
 import Image from 'next/image';
+import { CreateTeam } from '@/app/api/pocketbase/team/create-team';
 
 interface CreateTeamModalProps {
   isOpen: boolean;
   onClose: () => void;
   onSuccess: () => void;
+}
+
+// Helper pour formater les erreurs PocketBase
+function formatPocketBaseError(err: unknown): string {
+  if (err && typeof err === 'object' && 'data' in err) {
+    const pbError = err as { 
+      status: number; 
+      message: string;
+      data: { 
+        data?: Record<string, { code: string; message: string }>;
+        message?: string;
+      } 
+    };
+    
+    if (pbError.data?.data) {
+      const errorMessages = Object.entries(pbError.data.data)
+        .map(([field, error]) => `${field}: ${error.message}`)
+        .join(', ');
+      return `Erreur de validation: ${errorMessages}`;
+    } else if (pbError.data?.message) {
+      return pbError.data.message;
+    } else {
+      return `Erreur ${pbError.status}: ${pbError.message}`;
+    }
+  }
+  
+  return err instanceof Error ? err.message : 'Erreur lors de la création de l\'équipe';
 }
 
 export default function CreateTeamModal({ isOpen, onClose, onSuccess }: CreateTeamModalProps) {
@@ -40,80 +67,46 @@ export default function CreateTeamModal({ isOpen, onClose, onSuccess }: CreateTe
     }
   };
 
+  const resetForm = () => {
+    setName('');
+    setTag('');
+    setCountry('');
+    setFoundedYear('');
+    setLogo(null);
+    setLogoPreview('');
+    setError('');
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
     setError('');
 
     try {
-      const formData = new FormData();
-      formData.append('name', name);
-      formData.append('tag', tag);
-      formData.append('country', country);
-      
-      // Convertir foundedYear en nombre
-      if (foundedYear) {
-        formData.append('founded_year', foundedYear.toString());
-      }
-      
-      if (logo) {
-        formData.append('logo_url', logo);
-      }
-
-      console.log('Envoi des données:', {
+      // Appel à la fonction CreateTeam.create
+      await CreateTeam.create({
         name,
         tag,
         country,
-        foundedYear,
-        hasLogo: !!logo
+        founded_year: parseInt(foundedYear, 10),
+        logo_url: logo || undefined,
       });
-
-      const result = await pb.collection('Teams').create(formData);
-      console.log('Équipe créée avec succès:', result);
-
-      // Réinitialiser le formulaire
-      setName('');
-      setTag('');
-      setCountry('');
-      setFoundedYear('');
-      setLogo(null);
-      setLogoPreview('');
       
+      console.log('Équipe créée avec succès');
+      resetForm();
       onSuccess();
       onClose();
     } catch (err: unknown) {
-      console.error('Erreur complète:', err);
-      
-      // Vérifier si c'est une erreur PocketBase
-      if (err && typeof err === 'object' && 'data' in err) {
-        const pbError = err as { 
-          status: number; 
-          message: string;
-          data: { 
-            data?: Record<string, { code: string; message: string }>;
-            message?: string;
-          } 
-        };
-        console.error('Détails de l\'erreur PocketBase:', pbError.data);
-        console.error('Message:', pbError.message);
-        
-        // Extraire les messages d'erreur spécifiques
-        if (pbError.data?.data) {
-          const errorMessages = Object.entries(pbError.data.data)
-            .map(([field, error]) => `${field}: ${error.message}`)
-            .join(', ');
-          setError(`Erreur de validation: ${errorMessages}`);
-        } else if (pbError.data?.message) {
-          setError(pbError.data.message);
-        } else {
-          setError(`Erreur ${pbError.status}: ${pbError.message}`);
-        }
-      } else {
-        setError(err instanceof Error ? err.message : 'Erreur lors de la création de l\'équipe');
-      }
+      console.error('Erreur lors de la création:', err);
+      setError(formatPocketBaseError(err));
     } finally {
       setLoading(false);
     }
+  };
+
+  const handleClose = () => {
+    resetForm();
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -124,7 +117,7 @@ export default function CreateTeamModal({ isOpen, onClose, onSuccess }: CreateTe
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-white">Créer une équipe</h2>
           <button
-            onClick={onClose}
+            onClick={handleClose}
             className="text-gray-400 hover:text-white text-2xl"
           >
             ×
@@ -179,7 +172,6 @@ export default function CreateTeamModal({ isOpen, onClose, onSuccess }: CreateTe
             >
               <option value="">Sélectionner une région</option>
               <option value="EU">Europe (EU)</option>
-              <option value="FR">France (FR)</option>
               <option value="NA">Amérique du Nord (NA)</option>
               <option value="KR">Corée (KR)</option>
               <option value="CN">Chine (CN)</option>
@@ -234,7 +226,7 @@ export default function CreateTeamModal({ isOpen, onClose, onSuccess }: CreateTe
           <div className="flex gap-4">
             <button
               type="button"
-              onClick={onClose}
+              onClick={handleClose}
               className="flex-1 bg-gray-600 text-white py-3 rounded-lg hover:bg-gray-700 transition font-medium"
               disabled={loading}
             >
