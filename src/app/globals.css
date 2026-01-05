@@ -284,6 +284,32 @@ button {
   box-shadow: 0 12px 30px var(--shadow-color);
 }
 
+/* Icon Wrapper for Cards */
+.meru-icon-wrapper {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--primary);
+  opacity: 0.2;
+}
+
+.meru-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--primary);
+}
+
+/* Stat Number */
+.meru-stat-number {
+  font-size: 1.875rem;
+  line-height: 2.25rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
 /* ========================================
    REUSABLE COMPONENTS - Containers
    ======================================== */

@@ -2,7 +2,7 @@
 
 import { pb } from '@/lib/pocketbase';
 import { useState, useEffect } from 'react';
-import CreateTeamModal from '@/components/CreateTeamModal';
+import CreateTeamModal from '@/components/popup/CreateTeamModal';
 import EditTeamModal from '@/components/EditTeamModal';
 import Image from 'next/image';
 
