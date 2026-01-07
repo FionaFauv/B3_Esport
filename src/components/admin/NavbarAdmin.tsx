@@ -45,7 +45,7 @@ export default function NavbarAdmin() {
             </div>
             <div>
               <h1 className="meru-nav-title text-lg">Esport Manager</h1>
-              <p className="meru-nav-subtitle">{user?.name}</p>
+              <p className="meru-nav-subtitle" suppressHydrationWarning>{user?.name}</p>
             </div>
           </Link>
 

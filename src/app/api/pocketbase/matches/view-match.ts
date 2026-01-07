@@ -1,16 +1,30 @@
 import { pb } from '@/lib/pocketbase';
 import { Match } from '@/app/api/types';
 
+interface PaginatedResult<T> {
+  items: T[];
+  page: number;
+  perPage: number;
+  totalItems: number;
+  totalPages: number;
+}
+
 /**
- * Récupère la liste des matchs avec toutes les relations
+ * Récupère la liste des matchs avec toutes les relations et métadonnées de pagination
  */
-export const fetchMatches = async (page: number = 1, perPage: number = 50): Promise<Match[]> => {
+export const fetchMatches = async (page: number = 1, perPage: number = 50): Promise<PaginatedResult<Match>> => {
   try {
-    const records = await pb.collection('Matches').getList<Match>(page, perPage, {
+    const result = await pb.collection('Matches').getList<Match>(page, perPage, {
       sort: '-match_date',
       expand: 'team1_id,team2_id,game_id,tournament_id',
     });
-    return records.items;
+    return {
+      items: result.items,
+      page: result.page,
+      perPage: result.perPage,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    };
   } catch (error) {
     console.error('Erreur lors du chargement des matchs:', error);
     throw error;
@@ -143,6 +157,49 @@ export const fetchRecentFinishedMatches = async (limit: number = 10): Promise<Ma
     return result.items;
   } catch (error) {
     console.error('Erreur lors du chargement des derniers matchs:', error);
+    throw error;
+  }
+};
+
+/**
+ * Recherche des matchs avec filtres optionnels
+ */
+export const searchMatches = async (
+  page: number = 1,
+  perPage: number = 50,
+  searchQuery?: string,
+  statusFilter?: string
+): Promise<PaginatedResult<Match>> => {
+  try {
+    const filters: string[] = [];
+    
+    // Filtre de recherche par nom d'équipe
+    if (searchQuery && searchQuery.trim()) {
+      filters.push(`(team1_id.name ~ "${searchQuery}" || team2_id.name ~ "${searchQuery}" || team1_id.tag ~ "${searchQuery}" || team2_id.tag ~ "${searchQuery}")`);
+    }
+    
+    // Filtre par statut
+    if (statusFilter && statusFilter !== 'all') {
+      filters.push(`status = "${statusFilter}"`);
+    }
+    
+    const filterString = filters.length > 0 ? filters.join(' && ') : '';
+    
+    const result = await pb.collection('Matches').getList<Match>(page, perPage, {
+      sort: '-match_date',
+      expand: 'team1_id,team2_id,game_id,tournament_id',
+      filter: filterString,
+    });
+    
+    return {
+      items: result.items,
+      page: result.page,
+      perPage: result.perPage,
+      totalItems: result.totalItems,
+      totalPages: result.totalPages,
+    };
+  } catch (error) {
+    console.error('Erreur lors de la recherche des matchs:', error);
     throw error;
   }
 };

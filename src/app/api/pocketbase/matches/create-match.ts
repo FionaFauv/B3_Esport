@@ -13,7 +13,7 @@ export const CreateMatch = {
         team2_id: data.team2_id,
         game_id: data.game_id,
         match_date: data.match_date,
-        status: data.status || 'upcoming',
+        status: data.status || 'Prévu',
         team1_score: data.team1_score || 0,
         team2_score: data.team2_score || 0,
         winner_id: data.winner_id || '',
